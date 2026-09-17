@@ -10,6 +10,7 @@ h1 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -110%);
+  color: #D3D3D3;
 }
 
 nav {
@@ -41,4 +42,5 @@ body {
 .icon {
     font-size: 70px;
     color: lightgrey;
+    border: none;
 }
