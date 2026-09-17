@@ -1,4 +1,22 @@
 html {height: 100%;}
+
+h1 {
+  font-size: 150px;
+}
+
+.title {
+  display: flex;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -110%);
+  color: #D3D3D3;
+}
+
+nav {
+  display: flex;
+}
+
 body {
     background: linear-gradient(135deg, #1a135a 0%, #265bea 100%);
     width: 100%;
@@ -6,8 +24,8 @@ body {
     background-repeat: no-repeat;
   }
 
-
-nav {
+.navigation {
+  gap: 5px  ;
   display: flex;
   flex-direction: column;
   align-content: flex-start;
@@ -19,8 +37,10 @@ nav {
   width: 100px;
   height: 100px;
   background: transparent;
+  cursor: pointer;
 }
 .icon {
     font-size: 70px;
     color: lightgrey;
+    border: none;
 }
