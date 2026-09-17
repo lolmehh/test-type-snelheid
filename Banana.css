@@ -1,5 +1,5 @@
 body {
-    background-color: powderblue;
+    background: linear-gradient(135deg, #0052D4 0%, #65C7F7 50%, #9CECFB 100%);
   }
 .Hoi {
     font-size: large;
