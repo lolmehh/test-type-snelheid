@@ -17,19 +17,20 @@ async function getWords(lang = "en", difficulty = 0, amount = 1){
     
     if(lang === "en"){
          word_dataset = english_words.filter(word => word.level === difficulty_levels[difficulty]);
-         word_dataset = word_dataset.map(word => word.word);
+            word_dataset = word_dataset.map(word => word.word);
     } else if(lang === "nl"){
         word_dataset = dutch_words;
         //Since i did not find any json datasets with difficulty labels, the code will try to assume the difficulty
         let word_length_bounds = dutch_word_length_to_difficulty[difficulty];
         word_dataset = dutch_words.filter(word => word.word.length >= word_length_bounds[0] && word.word.length <= word_length_bounds[1]);
+        word_dataset = word_dataset.map(word => word.word);
     }
     for (let i = 0; i < amount; i++) {
         const randomIndex = Math.floor(Math.random() * word_dataset.length);
-        words.push(word_dataset[randomIndex]["word"]);
+        words.push(word_dataset[randomIndex]);
     }
     return words;
 }
 
 
-console.log(getWords("nl", 5, 5));
+//console.log(getWords("nl", 5, 5));
