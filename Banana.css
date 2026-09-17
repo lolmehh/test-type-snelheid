@@ -7,3 +7,16 @@ body {
     color: lightgrey;
   }
 
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  align-items: stretch; 
+}
+
+.settings, .statistics {
+  width: 100px;
+  height: 100px;
+}
