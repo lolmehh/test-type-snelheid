@@ -16,7 +16,7 @@ async function getWords(lang = "en", difficulty = 0, amount = 1){
     let words = [];
     
     if(lang === "en"){
-         word_dataset = english_words.filter(word => word.level === difficulty_levels[difficulty]);
+            word_dataset = english_words.filter(word => word.level === difficulty_levels[difficulty] && !word.word.includes(" "));
             word_dataset = word_dataset.map(word => word.word);
     } else if(lang === "nl"){
         word_dataset = dutch_words;
@@ -31,6 +31,7 @@ async function getWords(lang = "en", difficulty = 0, amount = 1){
     }
     return words;
 }
+
 
 
 //console.log(getWords("nl", 5, 5));
