@@ -46,7 +46,7 @@ body {
   display: none;
   color: white;
 }
-.label:hover {
+.icon:hover + label {
   display: block;
 }
 .icon {
