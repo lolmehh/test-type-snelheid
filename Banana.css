@@ -87,6 +87,12 @@ body {
   position: absolute;
   left: 110px;
 }
+.dropdown_menu {
+  display: none;
+}
+.dropdown_menu {
+  display: block;
+}
 
 .icon:hover {
     background-color: rgb(0, 0, 160);
