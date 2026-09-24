@@ -85,3 +85,7 @@ body {
 .icon:hover {
   color: #8787d9;
 }
+
+.icon:active {
+  color: #4fd2d0;
+}
