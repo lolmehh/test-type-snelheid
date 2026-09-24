@@ -55,6 +55,8 @@ body {
   display: none;
   color: white;
 }
+.icon:hover + label {
+  display: block;
 
 .live-stats {
   display: flex;
@@ -66,11 +68,20 @@ body {
   color: #D3D3D3;
 }
 
-.icon:hover + label {
-  display: block;
 }
 .icon {
-    font-size: 70px;
-    color: lightgrey;
-    border: none;
+  font-size: 70px;
+  color: lightgrey;
+  border: none;
+  transition-duration: 0.2s;
+}
+.label {
+  display: none;
+}
+.icon:hover + .label {
+  display: block;
+  color: #8787d9;
+  font-size: large;
+  position: absolute;
+  left: 110px;
 }
