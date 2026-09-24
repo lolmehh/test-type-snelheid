@@ -50,3 +50,9 @@ body {
   border: none;
   transition-duration: 0.2s;
 }
+.label {
+  display: none;
+}
+.lable:hover {
+  display: block;
+}
