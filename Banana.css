@@ -41,6 +41,16 @@ body {
   background: transparent;
   cursor: pointer;
 }
+.label {  
+  background-color: black;
+  padding: 2px;
+  width: 100px;
+  display: none;
+  color: white;
+}
+.icon:hover + label {
+  display: block;
+}
 .icon {
     font-size: 70px;
     color: lightgrey;
