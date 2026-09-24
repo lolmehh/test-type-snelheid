@@ -1,7 +1,9 @@
 html {height: 100%;}
 
 h1 {
-  font-size: 150px;
+  /* Minimum, percentage schermbreedte, Maximum */
+  font-size: clamp(4rem, 14vw, 10rem);
+  white-space: nowrap; 
 }
 
 .title {
