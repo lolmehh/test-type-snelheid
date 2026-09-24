@@ -78,6 +78,7 @@ body {
 }
 .label {
   display: none;
+ 
 }
 .icon:hover + .label {
   display: block;
@@ -85,4 +86,8 @@ body {
   font-size: large;
   position: absolute;
   left: 110px;
+}
+
+.icon:hover {
+    background-color: rgb(0, 0, 160);
 }
