@@ -53,6 +53,6 @@ body {
 .label {
   display: none;
 }
-.icon:hover label {
+.icon:hover + .label {
   display: block;
 }
