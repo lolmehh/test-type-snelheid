@@ -78,14 +78,20 @@ body {
 .dropdown_menu {
   display: none;
 }
-.dropdown_menu {
+.statistics:hover + .dropdown_menu {
   display: block;
+  background: linear-gradient(180deg, #85a7f7 0%, #eff2fc 100%);
 }
-
+.dropdown_menu li ul li {
+  color: black;
+}
 .icon:hover {
   color: #8787d9;
 }
 
 .icon:active {
   color: #4fd2d0;
+}
+.dropdown_menu:hover + .statistics {
+  color: #1a135a;
 }
