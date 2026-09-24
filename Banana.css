@@ -6,6 +6,13 @@ h1 {
   white-space: nowrap; 
 }
 
+h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: clamp(1rem, 3.5vw, 2.5rem);
+  white-space: nowrap
+}
+
 .title {
   display: flex;
   position: absolute;
@@ -48,6 +55,17 @@ body {
   display: none;
   color: white;
 }
+
+.live-stats {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -130%);
+  color: #D3D3D3;
+}
+
 .icon:hover + label {
   display: block;
 }
