@@ -55,4 +55,6 @@ body {
 }
 .icon:hover + .label {
   display: block;
+  color: #8787d9;
+  font-size: large;
 }
