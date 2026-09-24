@@ -41,18 +41,13 @@ body {
   background: transparent;
   cursor: pointer;
 }
-.label {  
-  background-color: black;
-  padding: 2px;
-  width: 100px;
-  display: none;
-  color: white;
-}
-.icon:hover + label {
-  display: block;
+.icon:hover {
+  color: #a1a1d3
+
 }
 .icon {
-    font-size: 70px;
-    color: lightgrey;
-    border: none;
+  font-size: 70px;
+  color: lightgrey;
+  border: none;
+  transition-duration: 1.2s;
 }
