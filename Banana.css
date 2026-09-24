@@ -78,7 +78,7 @@ body {
 .dropdown_menu {
   display: none;
 }
-.icon:hover + .dropdown_menu {
+.statistics:hover + .dropdown_menu {
   display: block;
   background: linear-gradient(180deg, #85a7f7 0%, #eff2fc 100%);
 }
@@ -88,6 +88,6 @@ body {
 .icon:hover {
   color: #8787d9;
 }
-.dropdown_menu:hover + .icon {
+.dropdown_menu:hover + .statistics {
   color: #1a135a;
 }
