@@ -55,8 +55,10 @@ body {
   display: none;
   color: white;
 }
+
 .icon:hover + label {
   display: block;
+}
 
 .live-stats {
   display: flex;
@@ -68,7 +70,6 @@ body {
   color: #D3D3D3;
 }
 
-}
 .icon {
   font-size: 70px;
   color: lightgrey;
