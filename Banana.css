@@ -4,6 +4,7 @@ h1 {
   /* Minimum, percentage schermbreedte, Maximum */
   font-size: clamp(4rem, 14vw, 10rem);
   white-space: nowrap; 
+  font-family: 'Lucida Console', "Times New Roman", "Times", "serif", monospace;
 }
 
 /* BANAAAAN */
@@ -13,7 +14,8 @@ h2 {
   margin-top: 0;
   margin-bottom: 0;
   font-size: clamp(1rem, 3.5vw, 2.5rem);
-  white-space: nowrap
+  white-space: nowrap;
+  font-family: 'Lucida Console', "Times New Roman", "Times", "serif", monospace;
 }
 
 .title {
