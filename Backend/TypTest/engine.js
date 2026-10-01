@@ -15,15 +15,18 @@ const TIMER_LENGTH = 10 //seconds
 
 
 async function generateWords(lang, difficulty, n, replace = true) {
-    
+    let appendWords = 5;
     if (replace){
         currentWords = await getWords(lang, difficulty, n);
         wordGuideDiv.replaceChildren();
+    
     }else{
         currentWords.push(await getWords(lang, difficulty, n));
+        appendWords = 2;
     }
+
     
-    for (let wordIndex = currentWords.length - 5; wordIndex < currentWords.length; wordIndex++) {
+    for (let wordIndex = currentWords.length - appendWords; wordIndex < currentWords.length; wordIndex++) {
         const newWordParagraph = document.createElement("p");
         newWordParagraph.textContent = currentWords[wordIndex];
         newWordParagraph.id = "word" + wordIndex;
@@ -64,6 +67,26 @@ function handleUserInput(){
             currentGuideWord.style.color = "red"
         }
     }
+}
+
+function calc_wpm(elasped_ms, correct_chars) {
+    const minutes = elasped_ms / 60000;
+
+    if (minutes <=0) return 0;
+    const words = correct_chars / 5;
+    return Math.round(words / minutes);
+}
+
+let startTime =null;
+
+let correctchars = 0;
+
+function onkeytyped (iscorrect) {
+    if (!startTime) startTime = Date.now();
+    if (iscorrect) correctchars++;
+    const elapsed = Date.now() - startTime;
+    const wpm= calc_wpm(elapsed, correctchars);
+    console.log('huidige snelheid', wpm, 'wpm');
 }
 
 inputBox.addEventListener("input", () => handleUserInput())
