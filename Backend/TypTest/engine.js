@@ -3,6 +3,8 @@ import { getWords } from "/Backend/Words/words.js";
 let currentWords = [];
 let selectedDifficulty = 0;
 let selectedLanguage = "nl";
+let correctWords = 0;
+let isAppendingWords = false;
 
 const inputBox = document.getElementById("main-input");
 const wordGuideDiv = document.getElementById("Word-guide-container");
@@ -12,21 +14,22 @@ const difficultySelect = document.getElementById("difficulty")
 const wpmLabel = document.getElementById("wpm-count")
 
 const TIMER_LENGTH = 10 //seconds
-
+let startTime =null;
 
 async function generateWords(lang, difficulty, n, replace = true) {
-    let appendWords = 5;
+    let firstWordIndex = 0;
     if (replace){
         currentWords = await getWords(lang, difficulty, n);
         wordGuideDiv.replaceChildren();
     
     }else{
-        currentWords.push(await getWords(lang, difficulty, n));
-        appendWords = 2;
+        const newWords = await getWords(lang, difficulty, n);
+        firstWordIndex = currentWords.length;
+        currentWords.push(...newWords);
     }
 
     
-    for (let wordIndex = currentWords.length - appendWords; wordIndex < currentWords.length; wordIndex++) {
+    for (let wordIndex = firstWordIndex; wordIndex < currentWords.length; wordIndex++) {
         const newWordParagraph = document.createElement("p");
         newWordParagraph.textContent = currentWords[wordIndex];
         newWordParagraph.id = "word" + wordIndex;
@@ -40,14 +43,41 @@ async function generateWords(lang, difficulty, n, replace = true) {
 async function onReset(){
     selectedDifficulty = Number(difficultySelect.value);
     selectedLanguage = languageSelect.value;
+    correctWords = 0;
+    
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
 }
 resetBtn.addEventListener("click", () => onReset())
 
-function handleUserInput(){
+function checkUserInput(){
     const currentText = inputBox.value
     const lastInput = currentText[currentText.length - 1]
+    const rawSplitUserText = currentText.split(" ")
+    const splitUserText = rawSplitUserText.filter(str => str !== "")
+    const guideWords = wordGuideDiv.children
+    correctWords = 0;
+    if(splitUserText.length >= currentWords.length - 1 && !isAppendingWords){
+        isAppendingWords = true;
+        generateWords(selectedLanguage, selectedDifficulty, 5, false)
+            .finally(() => { isAppendingWords = false; });
+    }
+    for(let wordIndex = 0; wordIndex < splitUserText.length; wordIndex++){
+        const lastWord = splitUserText[wordIndex];
+        const currentGuideWord = guideWords[wordIndex];
+        if(lastWord === currentWords[wordIndex]){
+            correctWords++;
+            currentGuideWord.style.color = "green";
+        }else{
+            currentGuideWord.style.color = "red";
+        }
+    }
+    for(let guideWordIndex = splitUserText.length; guideWordIndex < currentWords.length; guideWordIndex++){
+        console.log(guideWordIndex);
+        guideWords[guideWordIndex].style.color = "";
+    }
+    guideWords[splitUserText.length - 1].style.color = "blue"
+    /*
     if (lastInput === ' '){
         //then we chenck the last typed word
         const rawSplitUserText = currentText.split(" ")
@@ -67,6 +97,9 @@ function handleUserInput(){
             currentGuideWord.style.color = "red"
         }
     }
+        */
+    
+
 }
 
 function calc_wpm(elasped_ms, correct_chars) {
@@ -77,16 +110,18 @@ function calc_wpm(elasped_ms, correct_chars) {
     return Math.round(words / minutes);
 }
 
-let startTime =null;
 
 let correctchars = 0;
 
-function onkeytyped (iscorrect) {
+function onCharTyped (iscorrect) {
+    wpmLabel.value = "hello"
     if (!startTime) startTime = Date.now();
     if (iscorrect) correctchars++;
     const elapsed = Date.now() - startTime;
-    const wpm= calc_wpm(elapsed, correctchars);
-    console.log('huidige snelheid', wpm, 'wpm');
+    //console.log('huidige snelheid', wpm, 'wpm');
+    checkUserInput();
+    const wpm = calc_wpm(elapsed, correctWords);
+    wpmLabel.value = 'Huidige snelheid: ' + wpm + ' wpm';
 }
 
-inputBox.addEventListener("input", () => handleUserInput())
+inputBox.addEventListener("input", () => onCharTyped());
