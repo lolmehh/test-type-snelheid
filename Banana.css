@@ -67,7 +67,9 @@ body {
   color: lightgrey;
   border: none;
   transition-duration: 0.2s;
+  rotate: 0deg;
 }
+
 .label {display: none;}
 
 .icon:hover + .label {
@@ -90,7 +92,8 @@ body {
 }
 .icon:hover {color: #8787d9;}
 .icon:active {
-  color: #4fd2d0;
+  /*color: #4fd2d0; */
+  color: red;
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
 }
