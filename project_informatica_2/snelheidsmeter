@@ -1,9 +1,10 @@
 <!doctype html>
 
 <script>
-function calc_wpm(elasped_ms, correct_chars) {
-const minutes = elasped_ms / 60000;
-if (minutes <=0) return 0;
+function calc_wpm(elapsed_ms, correct_chars) {
+const seconds = elapsed_ms / 1000;
+if (seconds <=0) return 0;
+const minutes = seconds / 60;
 const words = correct_chars / 5;
 return Math.round(words / minutes); 
 
