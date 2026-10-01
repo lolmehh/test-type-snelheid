@@ -1,31 +1,46 @@
-import { getWords } from "../Words/words.js";
+import { getWords } from "/Backend/Words/words.js";
 
 let currentWords = [];
-
+let selectedDifficulty = 0;
+let selectedLanguage = "nl";
 
 const inputBox = document.getElementById("main-input");
 const wordGuideDiv = document.getElementById("Word-guide-container");
 const resetBtn = document.getElementById("reset-btn");
 const languageSelect = document.getElementById("language");
 const difficultySelect = document.getElementById("difficulty")
+const wpmLabel = document.getElementById("wpm-count")
+
+const TIMER_LENGTH = 10 //seconds
 
 
-
-async function generateWords(lang, difficulty, n) {
-    currentWords = await getWords(lang, difficulty, n);
-    wordGuideDiv.replaceChildren();
-
-    for (let wordIndex = 0; wordIndex < currentWords.length; wordIndex++) {
+async function generateWords(lang, difficulty, n, replace = true) {
+    
+    if (replace){
+        currentWords = await getWords(lang, difficulty, n);
+        wordGuideDiv.replaceChildren();
+    }else{
+        currentWords.push(await getWords(lang, difficulty, n));
+    }
+    
+    for (let wordIndex = currentWords.length - 5; wordIndex < currentWords.length; wordIndex++) {
         const newWordParagraph = document.createElement("p");
         newWordParagraph.textContent = currentWords[wordIndex];
         newWordParagraph.id = "word" + wordIndex;
         wordGuideDiv.append(newWordParagraph);
     }
-
-    inputBox.value = ""
+    if(replace){
+        inputBox.value = "";
+    }
 }
 
-resetBtn.addEventListener("click", () => generateWords(languageSelect.value, Number(difficultySelect.value) - 1, 5));
+async function onReset(){
+    selectedDifficulty = Number(difficultySelect.value);
+    selectedLanguage = languageSelect.value;
+
+    generateWords(selectedLanguage, selectedDifficulty, 5, true);
+}
+resetBtn.addEventListener("click", () => onReset())
 
 function handleUserInput(){
     const currentText = inputBox.value
@@ -41,6 +56,10 @@ function handleUserInput(){
         const currentGuideWord = guideWords[currentWordIndex]
         if (lastWord === currentWords[currentWordIndex]){
             currentGuideWord.style.color = "green"
+            const currentWordIndex = currentWords.indexOf(lastWord);
+            if (currentWordIndex === currentWords.length - 1){
+                generateWords(selectedLanguage, selectedDifficulty, 2, false)
+            }
         }else{
             currentGuideWord.style.color = "red"
         }
