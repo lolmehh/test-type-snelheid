@@ -89,7 +89,7 @@ body {
 .icon:active {
   color: #4fd2d0;
   animation-name: ronddraaien_icoontje;
-  animation-duration: 1s;
+  animation-duration: 5s;
 }
 
 .dropdown_menu:hover + .settings {
