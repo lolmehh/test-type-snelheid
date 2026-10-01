@@ -92,15 +92,12 @@ body {
 }
 .icon:hover {color: #8787d9;}
 .icon:active {
-  /*color: #4fd2d0; */
-  color: red;
+  color: #4fd2d0; 
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
 }
 
-.dropdown_menu:hover + .settings {
-  color: #1a135a;
-}
+.dropdown_menu:hover + .settings {color: #1a135a;}
 
 @keyframes ronddraaien_icoontje {
   from {transform: rotate(0deg);}
