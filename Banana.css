@@ -6,6 +6,9 @@ h1 {
   white-space: nowrap; 
 }
 
+/* BANAAAAN */
+/* Nog een keer */
+
 h2 {
   margin-top: 0;
   margin-bottom: 0;
@@ -86,8 +89,17 @@ body {
   color: black;
 }
 .icon:hover {color: #8787d9;}
-.icon:active {color: #4fd2d0;}
+.icon:active {
+  color: #4fd2d0;
+  animation-name: ronddraaien_icoontje;
+  animation-duration: 5s;
+}
 
 .dropdown_menu:hover + .settings {
   color: #1a135a;
+}
+
+@keyframes ronddraaien_icoontje {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
 }
