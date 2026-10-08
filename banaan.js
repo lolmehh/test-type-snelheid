@@ -1,0 +1,17 @@
+function calc_wpm(elapsed_ms, correct_chars) {
+const seconds = elapsed_ms / 1000;
+if (seconds <=0) return 0;
+const minutes = seconds / 60;
+const words = correct_chars / 5;
+return Math.round(words / minutes); 
+
+ }
+ let startTime =null;
+ let correctchars = 0;
+ function onkeytyped (iscorrect) {
+    if (!startTime) startTime = Date.now();
+    if (iscorrect) correctchars++;
+    const elapsed = Date.now() - startTime;
+    const wpm= calc_wpm(elapsed, correctchars);
+    console.log('huidige snelheid', wpm, 'wpm');
+    }

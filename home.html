@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Type tester</title>
     <link href="Banana.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+
 <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
 <body>
     <header>
         <nav>
             <div class="navigation">
                 <button class="settings icon"><i class="fa-solid fa-gear"></i></button>
-                <div class="label">Settings</div>
+                <div class="tooltip" class="label">Settings</div>
+                    <span class="tooltiptext">Some tooltip text</span>
 
                 <ul class="dropdown_menu">
                     <li>Language
@@ -36,16 +42,17 @@
                 </ul>
                 
                 <button class="statistics icon"><i class="fa-solid fa-chart-column"></i></button>
-                <div class="label">Statistics</div>
+                
             </div>
 
-            <div class="title">
-                <h1>Type tester</h1>
-            </div>
+            
         </nav>
         
     </header>
     <main>
+        <div class="title">
+                <h1>Type tester</h1>
+            </div>
         <div class="live-stats">
             <h2><span>0</span> rpm</h2>
             <h2><span>0</span> Errors</h2>
@@ -56,6 +63,8 @@
         </div>
         <div class="input-box">
             <label for="input">The chicken ate money.:</label>
+                
+            </div>
         </div>
     </main>
     <footer>

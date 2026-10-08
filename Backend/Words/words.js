@@ -1,7 +1,7 @@
 import dutch_words from "../data/words/dutch/words.json" with { type: "json" };
 import english_words from "../data/words/english/words.json" with { type: "json" };
 
-async function getWords(lang = "en", difficulty = 0, amount = 1){
+export async function getWords(lang = "en", difficulty = 0, amount = 1){
     /*
     Function to get a list of random words of langluage [lang] and difficulty [difficulty]
     lang: string, en or nl
