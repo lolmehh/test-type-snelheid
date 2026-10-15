@@ -5,6 +5,10 @@ let selectedDifficulty = 0;
 let selectedLanguage = "nl";
 let correctWords = 0;
 let isAppendingWords = false;
+let correctChars = 0;
+
+let WORD_COUNT_ALG = "5char";//5char = each 5 chars counted as word(what wpm counters normally use)
+//  <real = words are counted as words
 
 const inputBox = document.getElementById("main-input");
 const wordGuideDiv = document.getElementById("Word-guide-container");
@@ -12,6 +16,7 @@ const resetBtn = document.getElementById("reset-btn");
 const languageSelect = document.getElementById("language");
 const difficultySelect = document.getElementById("difficulty")
 const wpmLabel = document.getElementById("wpm-count")
+const charLabel = document.getElementById("char-count")
 
 const TIMER_LENGTH = 10 //seconds
 let startTime =null;
@@ -44,6 +49,7 @@ async function onReset(){
     selectedDifficulty = Number(difficultySelect.value);
     selectedLanguage = languageSelect.value;
     correctWords = 0;
+    correctChars = 0;
     
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
@@ -57,6 +63,7 @@ function checkUserInput(){
     const splitUserText = rawSplitUserText.filter(str => str !== "")//avoid code breaking because of a double space
     const guideWords = wordGuideDiv.children//get the reference words
     correctWords = 0;//reset counter (going to count again)
+    correctChars = 0;
     if(splitUserText.length >= currentWords.length - 1 && !isAppendingWords){
         //If code is running out of guide words generate more
         isAppendingWords = true;
@@ -69,6 +76,7 @@ function checkUserInput(){
         const currentGuideWord = guideWords[wordIndex];// reference word
         if(lastWord === currentWords[wordIndex]){
             correctWords++;
+            correctChars += lastWord.length;
             currentGuideWord.style.color = "green";
         }else{
             currentGuideWord.style.color = "red";
@@ -105,26 +113,42 @@ function checkUserInput(){
 
 }
 
-function calc_wpm(elasped_ms, correct_chars) {
+function calc_wpm_real(elasped_ms, correct_words) {
     const minutes = elasped_ms / 60000;
 
     if (minutes <=0) return 0;
-    const words = correct_chars / 5;
+    const words = correct_words / 5;
     return Math.round(words / minutes);
 }
 
+function calc_wpm_fivechar(elapsed_ms, correct_chars){
+    const FC_words = correct_chars / 5;
+
+    const wordsPerMs = FC_words / elapsed_ms;
+    const wordsPerMin = wordsPerMs * 1000 * 60
+    return wordsPerMin;
+}
 
 let correctchars = 0;
 
 function onCharTyped (iscorrect) {
-    wpmLabel.value = "hello"
+    wpmLabel.innerHTML = "Speed: -- "
+    charLabel.innerHTML = "Chars: --"
     if (!startTime) startTime = Date.now();
     if (iscorrect) correctchars++;
     const elapsed = Date.now() - startTime;
     //console.log('huidige snelheid', wpm, 'wpm');
+    let wpm = 0;
     checkUserInput();
-    const wpm = calc_wpm(elapsed, correctWords);
-    wpmLabel.value = 'Huidige snelheid: ' + wpm + ' wpm';
+    if (WORD_COUNT_ALG === "real"){
+        wpm = calc_wpm_real(elapsed, correctWords);
+    }else if (WORD_COUNT_ALG === "5char"){
+        wpm = calc_wpm_fivechar(elapsed, correctChars);
+        wpm = Math.round(wpm);
+    }
+    
+    wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
+    charLabel.innerHTML = "Chars: " + correctChars;
 }
 
 inputBox.addEventListener("input", () => onCharTyped());
