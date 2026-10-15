@@ -9,13 +9,7 @@ h1 {
   font-weight: 400;
   font-style: normal;
 }
-
-
-/* BANAAAAN */
-/* Nog een keer */
-/* een derde keer*/ 
-/* sike */ 
-
+ 
 h2 {
   margin-top: 0;
   margin-bottom: 0;
@@ -33,9 +27,7 @@ h2 {
   color: #D3D3D3;
 }
 
-nav {
-  display: flex;
-}
+nav {display: flex;}
 
 body {
     background: linear-gradient(135deg, #1a135a 0%, #265bea 100%);
@@ -51,6 +43,7 @@ body {
   align-content: flex-start;
   flex-wrap: wrap;
   align-items: stretch; 
+  position: relative;
 }
 
 .settings, .statistics {
@@ -58,6 +51,7 @@ body {
   height: 100px;
   background: transparent;
   cursor: pointer;
+  z-index: 1;
 }
 
 .live-stats {
@@ -72,42 +66,73 @@ body {
 
 .icon {
   font-size: 70px;
-  color: lightgrey;
+  color: #d3d3d3;
   border: none;
   transition-duration: 0.2s;
-  rotate: 0deg;
+  position: relative;
 }
 
-.label {display: none;}
-
-.icon:hover + .label {
-  display: block;
-  color: #8787d9;
-  font-size: large;
-  position: absolute;
-  left: 110px;
-}
-
-.dropdown_menu {display: none;}
-.settings:hover + .dropdown_menu {
-  display: block;
-  background: linear-gradient(180deg, #85a7f7 0%, #eff2fc 100%);
-  height: 150px;
-  width: 150px;
-}
-.dropdown_menu li ul li {
-  color: black;
-}
 .icon:hover {color: #8787d9;}
 .icon:active {
-  color: #4fd2d0; 
+  color: #5771E2; 
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
 }
 
-.dropdown_menu:hover + .settings {color: #1a135a;}
-
 @keyframes ronddraaien_icoontje {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
+}
+
+@keyframes menu_ontstaat {
+  from {height: 50px;}
+  to {height: 300px;}
+}
+@keyframes icoontje_omlaag {
+  from {top: 0px;}
+  to {top: 250px;}
+}
+
+summary::marker {font-size: 0;}
+summary{
+  padding-left: 15px;
+  padding-top: 30px;
+}
+.tooltip {
+  visibility: hidden;
+  background-color: black;
+  color: #eff2fc;
+  width: 7em;
+  position: absolute;
+  left: 100px;
+  top: 50px;
+}
+.settings {position: relative;}
+.settings:hover ~ .tooltip {visibility: visible;}
+.settings:hover ~ .dropdown_menu {
+  visibility: visible;
+  animation-name: menu_ontstaat;
+  animation-duration: 0.5s;
+}
+
+.settings:hover ~ .statistics {
+  animation-name: icoontje_omlaag;
+  animation-duration: 0.4s;
+  top: 250px;
+}
+.dropdown_menu:hover ~ .statistics {top: 250px;}
+.dropdown_menu:hover {visibility: visible;}
+.dropdown_menu{
+  visibility: hidden;
+  background: linear-gradient(180deg, #85a7f7 0%, #BACDFA 60%, #eff2fc 100%);
+  list-style-type: none;
+  border-radius: 20px;
+  height: 300px;
+  width: 200px;
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-evenly;
 }
