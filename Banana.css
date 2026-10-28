@@ -19,12 +19,20 @@ h2 {
 }
 
 .title {
-  display: flex;
-  position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 30px;
     left: 50%;
-    top: 210px;
-    transform: translate(-50%, -110%);
-  color: #D3D3D3;
+    transform: translateX(-50%);
+
+    width: max-content;
+    max-width: calc(100% - 140px);
+
+    color: #D3D3D3;
+    text-align: center;
 }
 
 nav {display: flex;}
@@ -44,6 +52,7 @@ body {
   flex-wrap: wrap;
   align-items: stretch; 
   position: relative;
+  Margin-top: 10px;
 }
 
 .settings, .statistics {
