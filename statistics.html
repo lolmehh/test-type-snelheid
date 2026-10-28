@@ -1,14 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Type tester</title>
-    <link href="Banana.css" rel="stylesheet">
+
+    <title>Type tester - Statistics</title>
+
+    <link href="statistics.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="graphs.js" defer></script>
 </head>
+
 <body>
     <header>
         <nav>
@@ -19,7 +23,17 @@
     </header>
 
     <main>
-        <canvas id="ts_chart" width="1418" height="426" style="display: block;box-sizing: border-box;height: 340.8px;width: 1135px;margin-top: 120px;"></canvas>
+        <section class="chart-container">
+            <h2>Typing speed distribution</h2>
+
+            <p class="chart-description">
+                Percentage mensen dat minstens deze typesnelheid haalt
+            </p>
+
+            <div class="chart">
+                <canvas id="ts_chart"></canvas>
+            </div>
+        </section>
     </main>
 
     <footer></footer>
