@@ -29,24 +29,7 @@ get_dark.addEventListener("click", () => {enable_darkmode()})
 const knopje_menu = document.getElementsById("knopje_menu")
 const menuutje = document.getElementById("menuutje")
 
-knopje_menu.addEventListener("click", () =>{
-    if (menuutje.classList.contains("show")) { document.body.classList.remove("show")}
-    else {document.body.classList.add("show")}
-})
-
-//settings.addEventListener("click", () => {document.getElementById("menuutje").classList.toggle("show")})
-
-//window.onclick = function(e) {
-  //  if (!e.target.matches('.knopje_menu')) {
-    //var menuutje = document.getElementById("menuutje")
-      //if (menuutje.classList.contains('show')) {
-        //menuutje.classList.remove('show')
-    //  }
-  //  }
-//  }
-
+knopje_menu.addEventListener("click", () => {menuutje.classList.toggle("show")})
 window.onclick = function(klik) {
-    if (!(klik.target.matches("knopje_menu"))) {
-        if (menuutje.classList.contains("show")) {menuutje.classList.remove("show")}
-    }
+    if (!(klik.target.matches("knopje_menu")) && menuutje.classList.contains("show")) {menuutje.classList.remove("show")}
 }

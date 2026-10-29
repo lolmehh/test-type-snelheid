@@ -132,11 +132,11 @@ body {
 
 .icon:hover {color: var(--icon_hover);}
 .icon:active {color: var(--icon_active);}
-.settings:active {
+/*.settings:active {
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
 }
-
+*/
 @keyframes ronddraaien_icoontje {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
@@ -151,11 +151,6 @@ body {
   to {top: 250px;}
 }
 
-summary::marker {font-size: 0;}
-summary{
-  padding-left: 15px;
-  padding-top: 30px;
-}
 .tooltip {
   visibility: hidden;
   background-color: var(--tooltip_background);
@@ -177,7 +172,7 @@ summary{
 .dropdown_menu:hover ~ .statistics {top: 250px;}
 */
 .dropdown_menu{
-  visibility: none;
+  visibility: hidden;
   background: linear-gradient(180deg, var(--menu_gradient_0) 0%, var(--menu_gradient_60) 60%, var(--menu_gradient_100) 100%);
   list-style-type: none;
   color: var(--regular_text);
@@ -193,7 +188,7 @@ summary{
 }
 
 .show {
-  display: visible;
+  visibility: visible;
   animation-name: menu_ontstaat;
   animation-duration: 0.5s;
 }
