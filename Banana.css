@@ -1,21 +1,55 @@
 html {height: 100%;}
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
+* {box-sizing: border-box;}
+
+:root {
+  --bg_gradient_0: #1a135a;
+  --bg_gradient_100: #265bea; 
+  --title_and_icon: #d3d3d3;
+  --icon_hover: #85a7f7;
+  --icon_active: #0A2463;
+  --tooltip_background: black;
+  --tooltip_text: #eff2fc;
+  --menu_gradient_0: #265bea;
+  --menu_gradient_60: #5681F1;
+  --menu_gradient_100: #85a7f7;
+  --regular_text: #0A2463;
+}
+
+.darkmode {
+  --title_and_icon: #b4b4b4;
+  --bg_gradient_0: #140E44;
+  --bg_gradient_100: #2037A2;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 50px 24px 40px;
+}
+
 h1 {
   /* Minimum, percentage schermbreedte, Maximum */
+  margin: 0;
   font-size: clamp(2rem, 8vw, 7rem);
   white-space: nowrap; 
   font-family: "Zen Dots", sans-serif;
   font-weight: 400;
   font-style: normal;
+  white-space: nowrap;
+  color: var(--title_and_icon)
 }
  
 h2 {
   margin-top: 0;
   margin-bottom: 0;
   font-size: clamp(1rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  text-align: center;
   white-space: nowrap;
-  font-family: 'Lucida Console', "Times New Roman", "Times", "serif", monospace;
+  font-family: 'Lucida Console', 'Times New Roman', serif;
 }
 
 .title {
@@ -31,17 +65,29 @@ h2 {
     width: max-content;
     max-width: calc(100% - 140px);
 
-    color: #D3D3D3;
+    color: var(--title_and_icon);
     text-align: center;
 }
 
 nav {display: flex;}
+.statistics_nav {
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  padding: 40px 20px 0;
+}
 
 body {
-    background: linear-gradient(135deg, #1a135a 0%, #265bea 100%);
+    margin: 0;
+    background: linear-gradient(135deg, var(--bg_gradient_0) 0%, var(--bg_gradient_100) 100%);
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--title_and_icon)
   }
 
 .navigation {
@@ -55,12 +101,15 @@ body {
   Margin-top: 10px;
 }
 
-.settings, .statistics {
+.settings, .statistics, .back_button {
   width: 100px;
   height: 100px;
   background: transparent;
   cursor: pointer;
   z-index: 1;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .live-stats {
@@ -70,24 +119,24 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -130%);
-  color: #D3D3D3;
+  color: var(--title_and_icon);
 }
 
 .icon {
   font-size: 70px;
-  color: #d3d3d3;
+  color: var(--title_and_icon);
   border: none;
   transition-duration: 0.2s;
   position: relative;
 }
 
-.icon:hover {color: #8787d9;}
-.icon:active {
-  color: #5771E2; 
+.icon:hover {color: var(--icon_hover);}
+.icon:active {color: var(--icon_active);}
+/*.settings:active {
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
 }
-
+*/
 @keyframes ronddraaien_icoontje {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
@@ -102,15 +151,10 @@ body {
   to {top: 250px;}
 }
 
-summary::marker {font-size: 0;}
-summary{
-  padding-left: 15px;
-  padding-top: 30px;
-}
 .tooltip {
   visibility: hidden;
-  background-color: black;
-  color: #eff2fc;
+  background-color: var(--tooltip_background);
+  color: var(--tooltip_text);
   width: 7em;
   position: absolute;
   left: 100px;
@@ -118,23 +162,20 @@ summary{
 }
 .settings {position: relative;}
 .settings:hover ~ .tooltip {visibility: visible;}
-.settings:hover ~ .dropdown_menu {
-  visibility: visible;
-  animation-name: menu_ontstaat;
-  animation-duration: 0.5s;
-}
-
-.settings:hover ~ .statistics {
+/*
+.settings:active ~ .statistics {
   animation-name: icoontje_omlaag;
   animation-duration: 0.4s;
   top: 250px;
 }
+
 .dropdown_menu:hover ~ .statistics {top: 250px;}
-.dropdown_menu:hover {visibility: visible;}
+*/
 .dropdown_menu{
   visibility: hidden;
-  background: linear-gradient(180deg, #85a7f7 0%, #BACDFA 60%, #eff2fc 100%);
+  background: linear-gradient(180deg, var(--menu_gradient_0) 0%, var(--menu_gradient_60) 60%, var(--menu_gradient_100) 100%);
   list-style-type: none;
+  color: var(--regular_text);
   border-radius: 20px;
   height: 300px;
   width: 200px;
@@ -144,4 +185,36 @@ summary{
   display: flex; 
   flex-direction: column;
   justify-content: space-evenly;
+}
+
+.show {
+  visibility: visible;
+  animation-name: menu_ontstaat;
+  animation-duration: 0.5s;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.chart-description {
+  margin: 18px 0 30px;
+  font-family: 'Lucida Console', monospace;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  line-height: 1.6;
+}
+
+.chart {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 45vw, 450px);
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(15, 20, 65, 0.25);
 }

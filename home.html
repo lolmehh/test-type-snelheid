@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="Nl">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,30 +10,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
-<script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
-<body>
+    <script src="Java_styles_banana.js" defer></script>
+    <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
+</head>
+<body onload="check_storage">
     <header>
         <nav>
             <div class="navigation">
-                <button class="settings icon"><i class="fa-solid fa-gear"></i></button>
+                <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
                 <div class="tooltip">Settings</div>
-                <ul class="dropdown_menu">
-                    <li><details>
-                        <summary>Language</summary>
+                <ul class="dropdown_menu" id="menuutje">
+                    <li>
+                        <p>Language</p>
                         <button>English</button>
                         <button>Nederlands</button>
-                    </details></li>
-                    <li><details>
-                        <summary>Difficulty</summary>
+                    </li>
+                    <li>
+                        <p>Difficulty</p>
                         <button>Easy</button>
                         <button>Medium</button>
                         <button>Hard</button>
-                    </details></li>
-                    <li><details>
-                        <summary>Appearance</summary>
-                        <button>Light mode</button>
-                        <button>Dark mode</button>
-                    </details></li>
+                    </li>
+                    <li>
+                        <p>Appearance</p> 
+                        <button id="get_light">Light mode</button>
+                        <button id="get_dark">Dark mode</button>
+                    </li>
                 </ul>
                 
                 <a href="statistics.html" class="statistics icon"><i class="fa-solid fa-chart-column"></i></a>
@@ -44,10 +46,11 @@
         </nav>
         
     </header>
+    
     <main>
         <div class="title">
-                <h1>Type tester</h1>
-            </div>
+            <h1>Type tester</h1>
+        </div>
         <div class="live-stats">
             <h2><span>0</span> rpm</h2>
             <h2><span>0</span> Errors</h2>
