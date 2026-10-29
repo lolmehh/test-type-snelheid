@@ -10,14 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
-<script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
-<body>
+    <script src="Java_styles_banana.js" defer></script>
+    <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
+<body onload="check_storage">
     <header>
         <nav>
             <div class="navigation">
-                <button class="settings icon"><i class="fa-solid fa-gear"></i></button>
+                <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
                 <div class="tooltip">Settings</div>
-                <ul class="dropdown_menu">
+                <ul class="dropdown_menu show" id="menuutje">
                     <li><details>
                         <summary>Language</summary>
                         <button>English</button>
@@ -30,9 +31,9 @@
                         <button>Hard</button>
                     </details></li>
                     <li><details>
-                        <summary>Appearance</summary>
-                        <button>Light mode</button>
-                        <button>Dark mode</button>
+                        <summary>Appearance</summary> 
+                            <button id="get_light">Light mode</button>
+                            <button id="get_dark">Dark mode</button>
                     </details></li>
                 </ul>
                 
