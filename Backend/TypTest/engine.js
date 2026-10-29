@@ -8,6 +8,8 @@ let isAppendingWords = false;
 let correctChars = 0;
 let timeHistory = [];
 let currentWordIndex = 0;//TODO: might want to merge with the correctwords var
+let WPMHistory = [];//history of the wpm over time, for graphing purposes. idk if we have time for that although
+let scheduledTimerUpdate = null;
 
 const WORD_COUNT_ALG = "real_cumulative";//5char = each 5 chars of word counted as word(what wpm counters normally use)
 //  <real = words are counted as words; 5char_cumulative = wpm calculated based on the total time elapsed since the start of the test and each 5 chars counted as a word
@@ -57,52 +59,16 @@ async function onReset(){
     correctWords = 0;
     correctChars = 0;
     currentWordIndex = 0;
+    scheduledTimerUpdate = null;
+    wpmLabel.innerHTML = "Speed: -- "
+    charLabel.innerHTML = "Chars: --"
+    timerLabel.innerHTML = "Time: 0s / " + TIMER_LENGTH + "s"
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
 }
 resetBtn.addEventListener("click", () => onReset())
 
-function checkUserInput(){
-    //Check the user input and update the guide words accordingly
 
-    const currentText = inputBox.value //The text inside the input field
-    const lastInput = currentText[currentText.length - 1]//last written char
-    const rawSplitUserText = currentText.split(" ")//Split the user text into words
-    const splitUserText = rawSplitUserText.filter(str => str !== "")//avoid code breaking because of a double space
-    const guideWords = wordGuideDiv.children//get the reference words
-    const previousCorrectWords = correctWords;
-    correctWords = 0;//reset counter (going to count again)
-    correctChars = 0;
-    if(splitUserText.length >= currentWords.length - 1 && !isAppendingWords){
-        //If code is running out of guide words generate more
-        isAppendingWords = true;
-        generateWords(selectedLanguage, selectedDifficulty, 5, false)
-            .finally(() => { isAppendingWords = false; });
-    }
-    for(let wordIndex = 0; wordIndex < splitUserText.length; wordIndex++){
-        //Go through each word user typed and compare to the actual one
-        const lastWord = splitUserText[wordIndex];//user word
-        const currentGuideWord = guideWords[wordIndex];// reference word
-        if(lastWord === currentWords[wordIndex]){
-            //User typed the word correctly
-            correctWords++;
-            correctChars += lastWord.length;
-            currentGuideWord.style.color = "green";
-        }else{
-            currentGuideWord.style.color = "red";
-        }
-    }
-    if (correctWords > previousCorrectWords) {
-        timeHistory.push([Date.now(), correctWords, correctChars]);
-    }
-    for(let guideWordIndex = splitUserText.length; guideWordIndex < currentWords.length; guideWordIndex++){
-        
-        console.log(guideWordIndex);//debug
-        guideWords[guideWordIndex].style.color = "";
-    }
-    guideWords[splitUserText.length - 1].style.color = "blue"//currently typing word
-
-}
 
 function checkUserInput_New(){
     //new user input check func
@@ -130,8 +96,9 @@ function checkUserInput_New(){
         GUI_guideWords[1].style.color = "blue";//mark the next word as the current one
         GUI_guideWords[0].remove();
         timeHistory.push([Date.now(), correctWords, correctChars, typedChars]);
+        return true;//new word typed
     }
-
+    return false;//no new word typed
 
 }
 
@@ -152,66 +119,58 @@ function calc_wpm_fivechar(elapsed_ms, correct_chars){
     return wordsPerMin;
 }
 
-function calc_wpm_fivechar_asdasdasd(elapsed_ms, correct_chars){
-
+function updateTimer(){
+    let elapsed = Date.now() - startTime;
+    timerLabel.innerHTML = "Time: " + Math.round(elapsed / 1000) + "s / " + TIMER_LENGTH + "s";
+    if (elapsed >= TIMER_LENGTH * 1000){
+        clearInterval(scheduledTimerUpdate);
+        scheduledTimerUpdate = null;
+        inputBox.disabled = true;
+    }
 }
 
-let correctchars = 0;
-
 function onCharTyped () {
-    wpmLabel.innerHTML = "Speed: -- "
-    charLabel.innerHTML = "Chars: --"
-    if (!startTime) startTime = Date.now();
+
+    if (!startTime){
+        //then the timer starts... NOW!
+        startTime = Date.now();
+        scheduledTimerUpdate = setInterval(updateTimer, 1000);
+    }
     const elapsed = Date.now() - startTime;
     //console.log('huidige snelheid', wpm, 'wpm');
     let wpm = 0;
-    checkUserInput_New();
-    //now calculate the wpm based on the selected algorithm
-    let typedChars = 0;
-    let typedWords = 0;
-    let elapsedTime = 0;
-    if (WORD_COUNT_ALG.search("cumulative") !== -1){
-        //Means we take all the typed chars and words and total time
-        typedChars = correctChars;  
-        typedWords = correctWords;
-        elapsedTime = elapsed;
-    }else{
-        //Means we only take the last typed word and chars and the time it took to type that word
-        if (timeHistory.length >= 2) {
-            typedChars = timeHistory[timeHistory.length - 1][3];
-            typedWords = 1;
-            elapsedTime = timeHistory[timeHistory.length - 1][0] - timeHistory[timeHistory.length - 2][0];
+    let newWordTyped = checkUserInput_New();
+    if (newWordTyped){
+        //now calculate the wpm based on the selected algorithm
+        let typedChars = 0;
+        let typedWords = 0;
+        let elapsedTime = 0;
+        if (WORD_COUNT_ALG.search("cumulative") !== -1){
+            //Means we take all the typed chars and words and total time
+            typedChars = correctChars;  
+            typedWords = correctWords;
+            elapsedTime = elapsed;
+        }else{
+            //Means we only take the last typed word and chars and the time it took to type that word
+            if (timeHistory.length >= 2) {
+                typedChars = timeHistory[timeHistory.length - 1][3];
+                typedWords = 1;
+                elapsedTime = timeHistory[timeHistory.length - 1][0] - timeHistory[timeHistory.length - 2][0];
+            }
         }
-    }
 
-    if (WORD_COUNT_ALG.search("real") !== -1){
-        wpm = calc_wpm_real(elapsedTime, typedWords);
-    }else if (WORD_COUNT_ALG.search("5char") !== -1){
-        wpm = calc_wpm_fivechar(elapsedTime, typedChars);
-    }
-    wpm = Math.round(wpm);
-
-    /*if (WORD_COUNT_ALG === "real"){
-        wpm = calc_wpm_real(elapsed, correctWords);
-    }else if (WORD_COUNT_ALG === "5char_cumulative"){
-        wpm = calc_wpm_fivechar(elapsed, correctChars);
+        if (WORD_COUNT_ALG.search("real") !== -1){
+            wpm = calc_wpm_real(elapsedTime, typedWords);
+        }else if (WORD_COUNT_ALG.search("5char") !== -1){
+            wpm = calc_wpm_fivechar(elapsedTime, typedChars);
+        }
         wpm = Math.round(wpm);
-    }else if (WORD_COUNT_ALG === "5char"){
-        if (timeHistory.length >= 2) {
-            const lastWordTime = Date.now() - timeHistory[timeHistory.length - 2][0];
-            const lastCharAmount = timeHistory[timeHistory.length - 1][2] - timeHistory[timeHistory.length - 2][2];
+
+
         
-        wpm = calc_wpm_fivechar(lastWordTime, timeHistory[timeHistory.length - 2][2]);
-        wpm = Math.round(wpm);
-        console.log('last word time', lastWordTime, 'ms');
-        console.log('last element of timeHistory', timeHistory[timeHistory.length - 2]);
-        }
+        wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
+        charLabel.innerHTML = "Chars: " + correctChars;
     }
-        */
-    
-    wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
-    charLabel.innerHTML = "Chars: " + correctChars;
-    timerLabel.innerHTML = "Time: " + Math.round(elapsed / 1000) + "s";//TODO: this should update independently of user input
 }
 
 inputBox.addEventListener("input", () => onCharTyped());
