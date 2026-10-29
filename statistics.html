@@ -1,25 +1,49 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Type tester</title>
+
+    <title>Type tester - Statistics</title>
+
     <link href="Banana.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="graphs.js" defer></script>
+
+    
+    <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
+
 </head>
+
 <body>
     <header>
         <nav>
-            <div class="title">
-                <h1>Statistics</h1>
+            <div class="navigation statistics_nav">
+                <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
+                <a href="home.html" class="back_button icon" aria-label="Home">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
             </div>
         </nav>
     </header>
 
     <main>
-        <canvas id="ts_chart" width="1418" height="426" style="display: block;box-sizing: border-box;height: 340.8px;width: 1135px;margin-top: 120px;"></canvas>
+        <div class="title">
+            <h1>Statistics</h1>
+        </div>
+        <section class="chart-container">
+            <h2>Type snelheid vergelijkingen</h2>
+
+            <p class="chart-description">
+                Percentage mensen dat minstens deze typesnelheid haalt
+            </p>
+
+            <div class="chart">
+                <canvas id="ts_chart"></canvas>
+            </div>
+        </section>
     </main>
 
     <footer></footer>
