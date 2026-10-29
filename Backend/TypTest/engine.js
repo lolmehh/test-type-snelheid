@@ -6,9 +6,14 @@ let selectedLanguage = "nl";
 let correctWords = 0;
 let isAppendingWords = false;
 let correctChars = 0;
+let timeHistory = [];
+let justReset = true;
 
-let WORD_COUNT_ALG = "5char";//5char = each 5 chars counted as word(what wpm counters normally use)
-//  <real = words are counted as words
+const WORD_COUNT_ALG = "5char";//5char = each 5 chars of word counted as word(what wpm counters normally use)
+//  <real = words are counted as words; 5char_cumulative = wpm calculated based on the total time elapsed since the start of the test and each 5 chars counted as a word
+
+const TIMER_LENGTH = 10 //seconds
+
 
 const inputBox = document.getElementById("main-input");
 const wordGuideDiv = document.getElementById("Word-guide-container");
@@ -17,8 +22,9 @@ const languageSelect = document.getElementById("language");
 const difficultySelect = document.getElementById("difficulty")
 const wpmLabel = document.getElementById("wpm-count")
 const charLabel = document.getElementById("char-count")
+const timerLabel = document.getElementById("timer")
 
-const TIMER_LENGTH = 10 //seconds
+
 let startTime =null;
 
 async function generateWords(lang, difficulty, n, replace = true) {
@@ -50,7 +56,7 @@ async function onReset(){
     selectedLanguage = languageSelect.value;
     correctWords = 0;
     correctChars = 0;
-    
+    justReset = true;
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
 }
@@ -62,6 +68,7 @@ function checkUserInput(){
     const rawSplitUserText = currentText.split(" ")//Split the user text into words
     const splitUserText = rawSplitUserText.filter(str => str !== "")//avoid code breaking because of a double space
     const guideWords = wordGuideDiv.children//get the reference words
+    const previousCorrectWords = correctWords;
     correctWords = 0;//reset counter (going to count again)
     correctChars = 0;
     if(splitUserText.length >= currentWords.length - 1 && !isAppendingWords){
@@ -82,34 +89,15 @@ function checkUserInput(){
             currentGuideWord.style.color = "red";
         }
     }
+    if (correctWords > previousCorrectWords) {
+        timeHistory.push([Date.now(), correctWords, correctChars]);
+    }
     for(let guideWordIndex = splitUserText.length; guideWordIndex < currentWords.length; guideWordIndex++){
         
         console.log(guideWordIndex);//debug
         guideWords[guideWordIndex].style.color = "";
     }
     guideWords[splitUserText.length - 1].style.color = "blue"//currently typing word
-    /* old code vvvvvvv
-    if (lastInput === ' '){
-        //then we chenck the last typed word
-        const rawSplitUserText = currentText.split(" ")
-        const splitUserText = rawSplitUserText.filter(str => str !== "")// so that double spaces do not cause trouble
-        const currentWordIndex = splitUserText.length - 1
-        const lastWord = splitUserText[currentWordIndex]
-
-        const guideWords = wordGuideDiv.children
-        const currentGuideWord = guideWords[currentWordIndex]
-        if (lastWord === currentWords[currentWordIndex]){
-            currentGuideWord.style.color = "green"
-            const currentWordIndex = currentWords.indexOf(lastWord);
-            if (currentWordIndex === currentWords.length - 1){
-                generateWords(selectedLanguage, selectedDifficulty, 2, false)
-            }
-        }else{
-            currentGuideWord.style.color = "red"
-        }
-    }
-        */
-    
 
 }
 
@@ -117,7 +105,7 @@ function calc_wpm_real(elasped_ms, correct_words) {
     const minutes = elasped_ms / 60000;
 
     if (minutes <=0) return 0;
-    const words = correct_words / 5;
+    const words = correct_words;
     return Math.round(words / minutes);
 }
 
@@ -126,29 +114,44 @@ function calc_wpm_fivechar(elapsed_ms, correct_chars){
 
     const wordsPerMs = FC_words / elapsed_ms;
     const wordsPerMin = wordsPerMs * 1000 * 60
+    console.log('correct chars', correct_chars, 'elapsed ms', elapsed_ms, 'wpm', wordsPerMin);
     return wordsPerMin;
+}
+
+function calc_wpm_fivechar_asdasdasd(elapsed_ms, correct_chars){
+
 }
 
 let correctchars = 0;
 
-function onCharTyped (iscorrect) {
+function onCharTyped () {
     wpmLabel.innerHTML = "Speed: -- "
     charLabel.innerHTML = "Chars: --"
     if (!startTime) startTime = Date.now();
-    if (iscorrect) correctchars++;
     const elapsed = Date.now() - startTime;
     //console.log('huidige snelheid', wpm, 'wpm');
     let wpm = 0;
     checkUserInput();
     if (WORD_COUNT_ALG === "real"){
         wpm = calc_wpm_real(elapsed, correctWords);
-    }else if (WORD_COUNT_ALG === "5char"){
+    }else if (WORD_COUNT_ALG === "5char_cumulative"){
         wpm = calc_wpm_fivechar(elapsed, correctChars);
         wpm = Math.round(wpm);
+    }else if (WORD_COUNT_ALG === "5char"){
+        if (timeHistory.length >= 2) {
+            const lastWordTime = Date.now() - timeHistory[timeHistory.length - 2][0];
+            const lastCharAmount = timeHistory[timeHistory.length - 1][2] - timeHistory[timeHistory.length - 2][2];
+        
+        wpm = calc_wpm_fivechar(lastWordTime, timeHistory[timeHistory.length - 2][2]);
+        wpm = Math.round(wpm);
+        console.log('last word time', lastWordTime, 'ms');
+        console.log('last element of timeHistory', timeHistory[timeHistory.length - 2]);
+        }
     }
     
     wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
     charLabel.innerHTML = "Chars: " + correctChars;
+    timerLabel.innerHTML = "Time: " + Math.round(elapsed / 1000) + "s";//TODO: this should update independently of user input
 }
 
 inputBox.addEventListener("input", () => onCharTyped());
