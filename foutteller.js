@@ -1,31 +1,54 @@
-function maaktypetest(orginele_Tekst) {
-    const orgineel = Array.from(orginele_tekst ?? "");
-    let vorige_lengte = 0;
+function maakTypeTest(origineleTekst) {
+    const origineel = Array.from(origineleTekst ?? "");
+    let vorigeLengte = 0;
     let fouten = 0;
-    const foutposities = [];
+    let totaalGetypt = 0;
+    const foutPosities = [];
+    
+    function telVerschillen(getypt) {
+        let aantal = 0;
+        for (let i = 0; i < getypt.length; i++) {
+            if (getypt[i] !== origineel[i]) aantal++;
+        }
+    return aantal;
+    }
 
     return {
-        update(getype_tekst){
-            const getypt = Array.from(getype_tekst ?? "");
-            //alleen nieuwe getype letters worden gecontroleerd backspace telt niet
-                 for (let i = vorige_lengte; i < getypt.length; i++) {
-                    if (getypt[i] !== origineel[i]){
-                        fouten++;
-                        foutposities.push(1);
-                    }
-                 } 
-                 vorige_lengte=getypt.length;
-                 return fouten;
+        update(getypteTekst) {
+            const getypt = Array.from(getypteTekst ?? "")
+
+            // alleen nieuwe getypte letter worden gecontroleerd, backspace word niet meegetelt
+            for (let i = vorigeLengte; i <getypt.length; i++) {
+                totaalGetypt++;
+                if (getypt[i] !== origineel [i]) {
+                    fouten ++;
+                    foutPosities.push(i);
+                }
+            }
+            vorigeLengte = getypt.length;
+            return fouten;
         },
-        // totaal aantal fouten
-        get fouten () {
-          return fouten;
+        // totaal gemaakte fouten
+        get fouten() {
+            return fouten;
         },
-        get foutposities() {
-            return [...foutposities];
+        get foutPosities() {
+            return[...foutPosities];
         },
-        huidigefouten(getypte_tekst) {
-            return tel_fouten(orginele_tekst, getypte_tekst)
+        // fouten die nog op het moment staan
+        huidigeFouten(getypteTekst){
+            return telVerschillen(Array.from(getypteTekst ?? ""));
+        },
+        //nauwkeurigheid
+        get nauwkeurigheid() {
+            if (totaalGetypt === 0) return 100;
+            return ((totaalGetypt - fouten) / totaalGetypt) * 100;
+        },
+        reset() {
+            vorigeLengte = 0;
+            fouten = 0;
+            totaalGetypt = 0;
+            foutPosities.length = 0;
         },
     };
 }
