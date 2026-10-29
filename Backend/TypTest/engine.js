@@ -1,13 +1,13 @@
 import { getWords } from "/Backend/Words/words.js";
 
-let currentWords = [];
+let currentWords = [];//words to type
 let selectedDifficulty = 0;
 let selectedLanguage = "nl";
 let correctWords = 0;
 let isAppendingWords = false;
 let correctChars = 0;
 let timeHistory = [];
-let justReset = true;
+let currentWordIndex = 0;//TODO: might want to merge with the correctwords var
 
 const WORD_COUNT_ALG = "5char";//5char = each 5 chars of word counted as word(what wpm counters normally use)
 //  <real = words are counted as words; 5char_cumulative = wpm calculated based on the total time elapsed since the start of the test and each 5 chars counted as a word
@@ -56,14 +56,16 @@ async function onReset(){
     selectedLanguage = languageSelect.value;
     correctWords = 0;
     correctChars = 0;
-    justReset = true;
+    currentWordIndex = 0;
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
 }
 resetBtn.addEventListener("click", () => onReset())
 
 function checkUserInput(){
-    const currentText = inputBox.value //The text that is inside the input field
+    //Check the user input and update the guide words accordingly
+
+    const currentText = inputBox.value //The text inside the input field
     const lastInput = currentText[currentText.length - 1]//last written char
     const rawSplitUserText = currentText.split(" ")//Split the user text into words
     const splitUserText = rawSplitUserText.filter(str => str !== "")//avoid code breaking because of a double space
@@ -82,6 +84,7 @@ function checkUserInput(){
         const lastWord = splitUserText[wordIndex];//user word
         const currentGuideWord = guideWords[wordIndex];// reference word
         if(lastWord === currentWords[wordIndex]){
+            //User typed the word correctly
             correctWords++;
             correctChars += lastWord.length;
             currentGuideWord.style.color = "green";
@@ -98,6 +101,29 @@ function checkUserInput(){
         guideWords[guideWordIndex].style.color = "";
     }
     guideWords[splitUserText.length - 1].style.color = "blue"//currently typing word
+
+}
+
+function checkUserInput_New(){
+    //new user input check func
+    //This one will not let you erase the already corret words
+    //by just making the input field only have the current word
+
+    const currentText = inputBox.value //The text inside the input field
+    const currentWordToType = currentWords[currentWordIndex];//get the current word to type
+    const GUI_guideWords = wordGuideDiv.children//get the reference words
+    if (currentText.trim() === currentWordToType) {
+        //check if the user typed the current word correctly
+        correctWords++;
+        correctChars += currentText.length;
+        currentWordIndex++;//move to the next word
+        inputBox.value = "";//clear the input box for the next word
+        generateWords(selectedLanguage, selectedDifficulty, 1, false)        
+        GUI_guideWords[1].style.color = "blue";//mark the next word as the current one
+        GUI_guideWords[0].remove();
+        timeHistory.push([Date.now(), correctWords, correctChars]);
+    }
+
 
 }
 
@@ -131,7 +157,7 @@ function onCharTyped () {
     const elapsed = Date.now() - startTime;
     //console.log('huidige snelheid', wpm, 'wpm');
     let wpm = 0;
-    checkUserInput();
+    checkUserInput_New();
     if (WORD_COUNT_ALG === "real"){
         wpm = calc_wpm_real(elapsed, correctWords);
     }else if (WORD_COUNT_ALG === "5char_cumulative"){
