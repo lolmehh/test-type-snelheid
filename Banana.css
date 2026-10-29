@@ -51,7 +51,7 @@ h2 {
     width: max-content;
     max-width: calc(100% - 140px);
 
-    color: #D3D3D3;
+    color: var(--title_and_icon);
     text-align: center;
 }
 
@@ -138,14 +138,15 @@ summary{
 }
 .settings {position: relative;}
 .settings:hover ~ .tooltip {visibility: visible;}
-
+/*
 .settings:active ~ .statistics {
   animation-name: icoontje_omlaag;
   animation-duration: 0.4s;
   top: 250px;
 }
-.dropdown_menu:hover ~ .statistics {top: 250px;}
 
+.dropdown_menu:hover ~ .statistics {top: 250px;}
+*/
 .dropdown_menu{
   visibility: none;
   background: linear-gradient(180deg, var(--menu_gradient_0) 0%, var(--menu_gradient_60) 60%, var(--menu_gradient_100) 100%);
