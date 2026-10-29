@@ -3,7 +3,7 @@ function maakTypeTest(origineleTekst) {
     let vorigeLengte = 0;
     let fouten = 0;
     let totaalGetypt = 0;
-    const foutposities = [];
+    const foutPosities = [];
     
     function telVerschillen(getypt) {
         let aantal = 0;
@@ -18,22 +18,22 @@ function maakTypeTest(origineleTekst) {
             const getypt = Array.from(getypteTekst ?? "")
 
             // alleen nieuwe getypte letter worden gecontroleerd, backspace word niet meegetelt
-            for (let i = vorigelente; i <getypt.length; i++) {
+            for (let i = vorigeLengte; i <getypt.length; i++) {
                 totaalGetypt++;
                 if (getypt[i] !== origineel [i]) {
                     fouten ++;
                     foutPosities.push(i);
                 }
             }
-            vorigelengte = getypt.length;
+            vorigeLengte = getypt.length;
             return fouten;
         },
         // totaal gemaakte fouten
         get fouten() {
             return fouten;
         },
-        get foutposities() {
-            return[...foutposities];
+        get foutPosities() {
+            return[...foutPosities];
         },
         // fouten die nog op het moment staan
         huidigeFouten(getypteTekst){
@@ -42,13 +42,13 @@ function maakTypeTest(origineleTekst) {
         //nauwkeurigheid
         get nauwkeurigheid() {
             if (totaalGetypt === 0) return 100;
-            return ((totaalGetypt - fouten) / totaalgetypt) * 100;
+            return ((totaalGetypt - fouten) / totaalGetypt) * 100;
         },
         reset() {
-            vorigelengte = 0;
+            vorigeLengte = 0;
             fouten = 0;
-            totaalgetypt = 0;
-            foutPosities.length = 0 ;
+            totaalGetypt = 0;
+            foutPosities.length = 0;
         },
     };
 }
