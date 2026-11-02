@@ -4,7 +4,7 @@ function maakTypeTest(origineleTekst) {
     let fouten = 0;
     let totaalGetypt = 0;
     const foutPosities = [];
-    
+    // telt hoeveel tekens op dit moment niet kloppen met de juiste woorden
     function telVerschillen(getypt) {
         let aantal = 0;
         for (let i = 0; i < getypt.length; i++) {
@@ -13,7 +13,7 @@ function maakTypeTest(origineleTekst) {
     return aantal;
     }
 
-    return {
+    return { //verwerkt  de nieuwe invoer en geeft de totaal aantal fouten terug
         update(getypteTekst) {
             const getypt = Array.from(getypteTekst ?? "")
 
@@ -43,7 +43,7 @@ function maakTypeTest(origineleTekst) {
         get nauwkeurigheid() {
             if (totaalGetypt === 0) return 100;
             return ((totaalGetypt - fouten) / totaalGetypt) * 100;
-        },
+        }, // zet alles weer terug 
         reset() {
             vorigeLengte = 0;
             fouten = 0;
