@@ -3,7 +3,7 @@ html {height: 100%;}
 
 * {box-sizing: border-box;}
 
-:root {
+/*:root {
   --bg_gradient_0: #1a135a;
   --bg_gradient_100: #265bea; 
   --title_and_icon: #d3d3d3;
@@ -15,6 +15,21 @@ html {height: 100%;}
   --menu_gradient_60: #5681F1;
   --menu_gradient_100: #85a7f7;
   --regular_text: #0A2463;
+}*/
+
+:root {
+  --bg_gradient_0: #1a135a;
+  --bg_gradient_100: #265bea; 
+  --title_and_icon: #d3d3d3;
+  --icon_hover: #85a7f7;
+  --icon_active: #0A2463;
+  --tooltip_text_from: rgba(239, 242, 252, 0);
+  --tooltip_text_to: rgba(239, 242, 252, 0.75);
+  --menu_gradient_0: #265bea;
+  --menu_gradient_60: #5681F1;
+  --menu_gradient_100: #85a7f7;
+  --regular_text: #0A2463;
+  --chart_bg: rgba(15, 20, 65, 0.25);
 }
 
 .darkmode {
@@ -141,7 +156,6 @@ body {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
 }
-
 @keyframes menu_ontstaat {
   from {height: 50px;}
   to {height: 300px;}
@@ -150,19 +164,30 @@ body {
   from {top: 0px;}
   to {top: 250px;}
 }
+@keyframes tooltip_verschijnt {
+  from {color: var(--tooltip_text_from);}
+  to {color: var(--tooltip_text_to);}
+}
 
 .tooltip {
   visibility: hidden;
-  background-color: var(--tooltip_background);
-  color: var(--tooltip_text);
   width: 7em;
-  position: absolute;
-  left: 100px;
-  top: 50px;
+  position: relative;
+  top: 0px;
 }
 .settings {position: relative;}
-.settings:hover ~ .tooltip {visibility: visible;}
 /*
+.statistics:hover ~ #tt_statistics, .settings:hover ~ #tt_settings {
+  animation-name: tooltip_verschijnt;
+  animation-duration: 0.2s;
+}*/
+.settings:hover ~ #tt_settings {
+  animation-name: tooltip_verschijnt;
+  animation-duration: 0.2s;
+}
+/*
+
+
 .settings:active ~ .statistics {
   animation-name: icoontje_omlaag;
   animation-duration: 0.4s;
@@ -216,5 +241,5 @@ body {
   height: clamp(300px, 45vw, 450px);
   padding: 20px;
   border-radius: 16px;
-  background: rgba(15, 20, 65, 0.25);
+  background: var(--chart_bg);
 }
