@@ -12,17 +12,17 @@
 
     <script src="Java_styles_banana.js" defer></script>
     <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
-    <script type="module" src="../Backend/TypTest/engine.js"></script>
+    <script type="module" src="Backend/TypTest/engine.js"></script>
 </head>
 
 <style>
  
-  .box {
-    width: 420px;
-    max-width: 90vw;
+  .typing-box {
+    width: min(900px, 94vw);
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 0 auto;
   }
   .row {
     display: flex;
@@ -45,6 +45,36 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.4em;   /* space between words */
+}
+
+.run-graph-section {
+  margin-top: 8px;
+}
+.run-graph-section h2, .run-chart-message {
+  color: var(--title_and_icon);
+  text-align: center;
+}
+.run-graph {
+  height: 220px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--chart_bg);
+}
+.run-graph canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.run-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: var(--title_and_icon);
+}
+.run-chart-message {
+  min-height: 1.5em;
 }
 
 </style>
@@ -90,8 +120,7 @@
         <div class="title">
             <h1>Type tester</h1>
             </div>
-        <div class="box">
-        <div class="box">
+        <div class="typing-box">
     <div class="row">
       <button type="button", id="reset-btn">Reset</button>
       <label>Language:</label>
@@ -108,15 +137,24 @@
         <option value="4">4</option>
       </select>
     </div>
-        <div class="row">
-        <label id="wpm-count">wpm:None</label>
-        <label id="char-count">chars:None</label>
-        <label id="timer">time:None</label>
-        </div>
         <div id="Word-guide-container">
             <p>Druk op "Reset" om te beginnen</p>
         </div>
         <input type="text" id="main-input">
+        <section class="run-graph-section" aria-labelledby="run-graph-title">
+          <h2 id="run-graph-title">Speed during this run</h2>
+          <div class="run-graph">
+            <canvas id="run-speed-chart" role="img" aria-label="Graph of typing speed over time during this run"></canvas>
+          </div>
+          <div class="run-stats" aria-live="polite">
+            <span id="wpm-count">Speed: --</span>
+            <span id="char-count">Chars: 0</span>
+            <span id="word-count">Words: 0</span>
+            <span id="timer">Time: 0s / 10s</span>
+          </div>
+          <p class="run-chart-message" id="run-chart-message" aria-live="polite">Your speed during this run will appear here.</p>
+        </section>
+        </div>
     </main>
 </body>
 </html>

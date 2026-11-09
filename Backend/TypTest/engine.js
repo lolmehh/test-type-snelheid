@@ -10,12 +10,15 @@ let timeHistory = [];
 let currentWordIndex = 0;//TODO: might want to merge with the correctwords var
 let WPMHistory = [];//history of the wpm over time, for graphing purposes. idk if we have time for that although
 let scheduledTimerUpdate = null;
+let lastGraphSampleSecond = -1;
+let runFinished = false;
 
 const WORD_COUNT_ALG = "real_cumulative";//5char = each 5 chars of word counted as word(what wpm counters normally use)
 //  <real = words are counted as words; 5char_cumulative = wpm calculated based on the total time elapsed since the start of the test and each 5 chars counted as a word
 
 const TIMER_LENGTH = 10; //seconds
 const COUNT_SPACES = true;//whether to require space at the end of word to continue to next
+const RUN_HISTORY_KEY = "typingTestRuns";
 
 const inputBox = document.getElementById("main-input");
 const wordGuideDiv = document.getElementById("Word-guide-container");
@@ -25,9 +28,114 @@ const difficultySelect = document.getElementById("difficulty")
 const wpmLabel = document.getElementById("wpm-count")
 const charLabel = document.getElementById("char-count")
 const timerLabel = document.getElementById("timer")
+const wordLabel = document.getElementById("word-count");
+const runChart = document.getElementById("run-speed-chart");
+const runChartMessage = document.getElementById("run-chart-message");
 
 
 let startTime =null;
+
+function drawRunChart() {
+    if (!runChart) return;
+
+    const context = runChart.getContext("2d");
+    const width = runChart.clientWidth;
+    const height = runChart.clientHeight;
+    if (!context || !width || !height) return;
+
+    const pixelRatio = window.devicePixelRatio || 1;
+    runChart.width = width * pixelRatio;
+    runChart.height = height * pixelRatio;
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    context.clearRect(0, 0, width, height);
+
+    const points = WPMHistory.length ? WPMHistory : [[0, 0]];
+    const maxWpm = Math.max(20, ...points.map(point => point[1]));
+    const padding = { top: 16, right: 14, bottom: 28, left: 42 };
+    const graphWidth = width - padding.left - padding.right;
+    const graphHeight = height - padding.top - padding.bottom;
+    const maxSeconds = TIMER_LENGTH;
+
+    context.font = "12px system-ui, sans-serif";
+    context.textAlign = "right";
+    context.textBaseline = "middle";
+    context.strokeStyle = "rgba(255, 255, 255, 0.16)";
+    context.fillStyle = "rgba(255, 255, 255, 0.72)";
+    for (let tick = 0; tick <= 4; tick++) {
+        const value = Math.ceil(maxWpm * tick / 4);
+        const y = padding.top + graphHeight * (1 - tick / 4);
+        context.beginPath();
+        context.moveTo(padding.left, y);
+        context.lineTo(width - padding.right, y);
+        context.stroke();
+        context.fillText(String(value), padding.left - 7, y);
+    }
+
+    context.textAlign = "center";
+    context.textBaseline = "top";
+    context.fillText("Time (seconds)", padding.left + graphWidth / 2, height - 18);
+    [0, maxSeconds / 2, maxSeconds].forEach(second => {
+        const x = padding.left + second / maxSeconds * graphWidth;
+        context.fillText(String(second), x, padding.top + graphHeight + 4);
+    });
+    context.save();
+    context.translate(12, padding.top + graphHeight / 2);
+    context.rotate(-Math.PI / 2);
+    context.fillText("WPM", 0, 0);
+    context.restore();
+
+    const plotted = points.map(([seconds, wpm]) => ({
+        x: padding.left + Math.min(seconds, maxSeconds) / maxSeconds * graphWidth,
+        y: padding.top + (1 - wpm / maxWpm) * graphHeight
+    }));
+
+    context.beginPath();
+    plotted.forEach((point, index) => {
+        if (index === 0) context.moveTo(point.x, point.y);
+        else context.lineTo(point.x, point.y);
+    });
+    context.strokeStyle = "#85a7f7";
+    context.lineWidth = 3;
+    context.stroke();
+
+    plotted.forEach(point => {
+        context.beginPath();
+        context.arc(point.x, point.y, 3.5, 0, Math.PI * 2);
+        context.fillStyle = "#ffffff";
+        context.fill();
+    });
+}
+
+function updateRunStats() {
+    if (wordLabel) wordLabel.textContent = "Words: " + correctWords;
+    charLabel.textContent = "Chars: " + correctChars;
+}
+
+function recordRun() {
+    if (runFinished || !startTime) return;
+    runFinished = true;
+    const durationMs = Math.min(Date.now() - startTime, TIMER_LENGTH * 1000);
+    const run = {
+        date: new Date().toISOString(),
+        wpm: calc_wpm_real(durationMs, correctWords),
+        chars: correctChars,
+        words: correctWords,
+        durationSeconds: Math.round(durationMs / 1000),
+        language: selectedLanguage,
+        difficulty: selectedDifficulty
+    };
+
+    try {
+        const runs = JSON.parse(localStorage.getItem(RUN_HISTORY_KEY) || "[]");
+        if (!Array.isArray(runs)) throw new Error("Run history must be an array.");
+        runs.push(run);
+        localStorage.setItem(RUN_HISTORY_KEY, JSON.stringify(runs));
+        if (runChartMessage) runChartMessage.textContent = "Run complete. Your result has been saved.";
+    } catch (error) {
+        console.error("Could not save typing run history:", error);
+        if (runChartMessage) runChartMessage.textContent = "Run complete, but this result could not be saved in this browser.";
+    }
+}
 
 async function generateWords(lang, difficulty, n, replace = true) {
     let firstWordIndex = 0;
@@ -60,14 +168,20 @@ async function onReset(){
     correctChars = 0;
     currentWordIndex = 0;
     timeHistory = [];
+    WPMHistory = [];
+    lastGraphSampleSecond = -1;
+    runFinished = false;
     startTime = null;
     if (scheduledTimerUpdate) {
         clearInterval(scheduledTimerUpdate);
         scheduledTimerUpdate = null;
     }
     wpmLabel.innerHTML = "Speed: -- "
-    charLabel.innerHTML = "Chars: --"
+    charLabel.innerHTML = "Chars: 0"
+    if (wordLabel) wordLabel.textContent = "Words: 0";
     timerLabel.innerHTML = "Time: 0s / " + TIMER_LENGTH + "s"
+    if (runChartMessage) runChartMessage.textContent = "Your speed during this run will appear here.";
+    drawRunChart();
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
     inputBox.disabled = false;
@@ -103,6 +217,7 @@ function checkUserInput_New(){
         GUI_guideWords[1].style.color = "Red";//mark the next word as the current one
         GUI_guideWords[0].remove();
         timeHistory.push([Date.now(), correctWords, correctChars, typedChars]);
+        updateRunStats();
         return true;//new word typed
     }
     return false;//no new word typed
@@ -128,11 +243,24 @@ function calc_wpm_fivechar(elapsed_ms, correct_chars){
 
 function updateTimer(){
     let elapsed = Date.now() - startTime;
-    timerLabel.innerHTML = "Time: " + Math.round(elapsed / 1000) + "s / " + TIMER_LENGTH + "s";
+    const measuredElapsed = Math.min(elapsed, TIMER_LENGTH * 1000);
+    const elapsedSeconds = measuredElapsed / 1000;
+    timerLabel.innerHTML = "Time: " + Math.floor(elapsedSeconds) + "s / " + TIMER_LENGTH + "s";
+    const sampleSecond = Math.floor(elapsedSeconds);
+    if (sampleSecond > lastGraphSampleSecond) {
+        WPMHistory.push([elapsedSeconds, calc_wpm_real(measuredElapsed, correctWords)]);
+        lastGraphSampleSecond = sampleSecond;
+        drawRunChart();
+    }
     if (elapsed >= TIMER_LENGTH * 1000){
         clearInterval(scheduledTimerUpdate);
         scheduledTimerUpdate = null;
         inputBox.disabled = true;
+        const finalWpm = calc_wpm_real(measuredElapsed, correctWords);
+        wpmLabel.textContent = "Speed: " + finalWpm + " wpm";
+        WPMHistory.push([TIMER_LENGTH, finalWpm]);
+        drawRunChart();
+        recordRun();
     }
 }
 
@@ -141,9 +269,13 @@ function onCharTyped () {
     if (!startTime){
         //then the timer starts... NOW!
         startTime = Date.now();
-        scheduledTimerUpdate = setInterval(updateTimer, 1000);
+        scheduledTimerUpdate = setInterval(updateTimer, 250);
     }
     const elapsed = Date.now() - startTime;
+    if (elapsed >= TIMER_LENGTH * 1000) {
+        updateTimer();
+        return;
+    }
     //console.log('huidige snelheid', wpm, 'wpm');
     let wpm = 0;
     let newWordTyped = checkUserInput_New();
@@ -176,8 +308,11 @@ function onCharTyped () {
 
         
         wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
-        charLabel.innerHTML = "Chars: " + correctChars;
+        updateRunStats();
+        WPMHistory.push([Math.min(elapsed / 1000, TIMER_LENGTH), calc_wpm_real(elapsed, correctWords)]);
+        drawRunChart();
     }
 }
 
 inputBox.addEventListener("input", () => onCharTyped());
+window.addEventListener("resize", drawRunChart);

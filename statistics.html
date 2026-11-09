@@ -7,7 +7,7 @@
 
     <title>Type tester - Statistics</title>
 
-    <link href="Banana.css" rel="stylesheet">
+    <link href="statistics.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="graphs.js" defer></script>
 
@@ -40,6 +40,33 @@
             <h1>Statistics</h1>
         </div>
         
+        <section class="chart-container personal-statistics">
+            <h2>Your progress</h2>
+            <p class="chart-description">WPM for each completed 10-second run. Results are saved in this browser.</p>
+            <p id="run-history-message" class="chart-description" aria-live="polite"></p>
+            <div class="chart">
+                <canvas id="run-history-chart" aria-label="Your typing speed across completed runs"></canvas>
+            </div>
+            <div class="run-history-list">
+                <h2>Recent runs</h2>
+                <div class="run-history-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Run</th>
+                                <th scope="col">Time ago</th>
+                                <th scope="col">WPM</th>
+                                <th scope="col">Words</th>
+                                <th scope="col">Characters</th>
+                                <th scope="col">Language</th>
+                                <th scope="col">Difficulty</th>
+                            </tr>
+                        </thead>
+                        <tbody id="run-history-rows"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
         <section class="chart-container">
             <h2>Type snelheid vergelijkingen</h2>
 
