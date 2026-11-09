@@ -1,70 +1,86 @@
-//dark mode, niveau en taal
-//de knoppies
+//dark mode, taal en moeilijkheidsniveaus
 const get_light = document.getElementById("get_light")
 const get_dark = document.getElementById("get_dark")
 const to_English = document.getElementById("to_English")
 const to_Dutch = document.getElementById("to_Dutch")
-const to_easy = document.getElementById("to_easy")
-const to_medium = document.getElementById("to_medium")
-const to_hard = document.getElementById("to_hard")
+const languageSelect = document.getElementById("language")
+const difficultySelect = document.getElementById("difficulty")
+
+const difficultyButtons = [
+  document.getElementById("to_makkelijk"),
+  document.getElementById("to_gemiddeld"),
+  document.getElementById("to_moeizaam"),
+  document.getElementById("to_ingewikkeld"),
+  document.getElementById("to_onmogelijk")
+]
+
+function setLanguage(lang) {
+  const safeLang = (lang || "nl").toLowerCase()
+  if (languageSelect) languageSelect.value = safeLang
+  localStorage.setItem("language", safeLang)
+
+  if (to_English) to_English.disabled = safeLang === "en"
+  if (to_Dutch) to_Dutch.disabled = safeLang === "nl"
+}
+
+function setDifficulty(level) {
+  const safeLevel = Math.max(0, Math.min(4, Number(level) || 0))
+
+  if (difficultySelect) difficultySelect.value = String(safeLevel)
+  localStorage.setItem("difficulty", String(safeLevel))
+
+  difficultyButtons.forEach((button, index) => {
+    if (!button) return
+    button.disabled = index === safeLevel
+  })
+}
 
 //darkmode
 const enable_darkmode = () => {  
     document.body.classList.add("darkmode")
     localStorage.setItem("darkmode", "active")
-    document.getElementById("get_light").disabled = false;
-    document.getElementById("get_dark").disabled = true;
+    if (document.getElementById("get_light")) document.getElementById("get_light").disabled = false;
+    if (document.getElementById("get_dark")) document.getElementById("get_dark").disabled = true;
 }
 const disable_darkmode = () => {
     document.body.classList.remove("darkmode")
     localStorage.setItem("darkmode", "inactive")
-    document.getElementById("get_dark").disabled = false;
-    document.getElementById("get_light").disabled = true;
-}
-//niveau
-const enable_easy_mode = () => {
-    //nu moet easy dus ff aan maar ik weet niet hoe dat gaat
-    localStorage.setItem("niveau", "easy")
-    document.getElementById("to_easy").disabled = true;  
-    document.getElementById("to_medium").disabled = false;
-    document.getElementById("to_hard").disabled = false;  
-}
-const enable_medium_mode = () => {
-    //ditto
-    localStorage.setItem("niveau", "medium")
-    document.getElementById("to_medium").disabled = true;  
-    document.getElementById("to_easy").disabled = false;
-    document.getElementById("to_hard").disabled = false;  
-}
-const enable_hard_mode = () => {
-    //ditto
-    localStorage.setItem("niveau", "hard")
-    document.getElementById("to_hard").disabled = true;  
-    document.getElementById("to_medium").disabled = false;
-    document.getElementById("to_easy").disabled = false;  
+    if (document.getElementById("get_dark")) document.getElementById("get_dark").disabled = false;
+    if (document.getElementById("get_light")) document.getElementById("get_light").disabled = true;
 }
 
 const check_storage = () => {
     if(localStorage.getItem("darkmode") == "active") {enable_darkmode()}
     else {disable_darkmode()}
-    if(localStorage.getItem("niveau") == "medium") {enable_medium_mode()}
-    else if(localStorage.getItem("niveau") == "hard") {enable_hard_mode()}
-    else {enable_easy_mode()}
+
+    const savedLang = localStorage.getItem("language") || "nl"
+    setLanguage(savedLang)
+
+    const savedDifficulty = localStorage.getItem("difficulty") || "0"
+    setDifficulty(savedDifficulty)
 } //zodat ie onthoudt hoe ie stond
 
+if (get_light) get_light.addEventListener("click", () => {disable_darkmode()})
+if (get_dark) get_dark.addEventListener("click", () => {enable_darkmode()})
+if (to_English) to_English.addEventListener("click", () => {setLanguage("en")})
+if (to_Dutch) to_Dutch.addEventListener("click", () => {setLanguage("nl")})
 
-get_light.addEventListener("click", () => {disable_darkmode()})
-get_dark.addEventListener("click", () => {enable_darkmode()})
-to_easy.addEventListener("click", () => {enable_easy_mode()})
-to_medium.addEventListener("click", () => {enable_medium_mode()})
-to_hard.addEventListener("click", () => {enable_hard_mode()})
+difficultyButtons.forEach((button) => {
+  if (!button) return
+  button.addEventListener("click", () => {
+    setDifficulty(button.dataset.difficulty)
+  })
+})
 
-
-// dropdwon
-const knopje_menu = document.getElementsById("knopje_menu")
+// dropdown
+const knopje_menu = document.getElementById("knopje_menu")
 const menuutje = document.getElementById("menuutje")
 
-knopje_menu.addEventListener("click", () => {menuutje.classList.toggle("show")})
-window.onclick = function(e) {
-    if (!(e.target.matches("knopje_menu")) && menuutje.classList.contains("show")) {menuutje.classList.remove("show")}
+if (knopje_menu && menuutje) {
+  knopje_menu.addEventListener("click", () => {menuutje.classList.toggle("show")})
+  window.addEventListener("click", function(e) {
+      if (!(e.target.closest("#knopje_menu")) && menuutje.classList.contains("show")) {
+          menuutje.classList.remove("show")
+      }
+  })
 }

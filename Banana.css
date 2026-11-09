@@ -7,6 +7,9 @@ html {height: 100%;}
   --bg_gradient_0: #1a135a;
   --bg_gradient_100: #265bea; 
   --title_and_icon: #d3d3d3;
+  --selected_option: #222fa9;
+  --unselected_option: #ffffff;
+  --section_text: #ffffff;
   --icon_hover: #85a7f7;
   --icon_active: #0A2463;
   --tooltip_text_from: rgba(239, 242, 252, 0);
@@ -19,12 +22,15 @@ html {height: 100%;}
 }
 
 .darkmode {
-  --title_and_icon: #b4b4b4;
-  --bg_gradient_0: #140E44;
-  --bg_gradient_100: #2037A2;
-  --menu_gradient_0: #063bCa;
-  --menu_gradient_60: #3661D1;
-  --menu_gradient_100: #6587D7;
+  --title_and_icon: #ffffff;
+  --selected_option: #2a38a2;
+  --unselected_option: #ffffff;
+  --section_text: #ffffff;
+  --bg_gradient_0: #10084a;
+  --bg_gradient_100: #020a30;
+  --menu_gradient_0: #020d2a;
+  --menu_gradient_60: #06163f;
+  --menu_gradient_100: #0b1c44;
 }
 
 main {
@@ -152,7 +158,7 @@ body {
 }
 @keyframes menu_ontstaat {
   from {height: 50px;}
-  to {height: 300px;}
+  to {height: 485 px;}
 }
 @keyframes icoontje_omlaag {
   from {top: 0px;}
@@ -194,9 +200,10 @@ body {
   visibility: hidden;
   background: linear-gradient(180deg, var(--menu_gradient_0) 0%, var(--menu_gradient_60) 60%, var(--menu_gradient_100) 100%);
   list-style-type: none;
-  color: var(--regular_text);
+  color: var(--section_text);
   border-radius: 20px;
-  height: 300px;
+  margin-left: 65px;
+  height: 485px;
   width: 200px;
   position: absolute;
   top: 0px;
@@ -241,9 +248,12 @@ body {
 .dropdown_menu button{
   background-color: rgba(0, 0, 0, 0);
   border: none;
-  color: var(--regular_text)
+  color: var(--unselected_option);
+  font-weight: 400;
 }
 
 .dropdown_menu button:disabled{
-  color: var(--title_and_icon)
+  color: var(--selected_option);
+  font-weight: 700;
+  opacity: 1;
 }

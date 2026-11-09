@@ -55,7 +55,7 @@
             <div class="navigation">
                 <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
                 <div class="tooltip" id="tt_settings">Settings</div>
-                <ul class="dropdown_menu show" id="menuutje" style="margin-left: 65px;">
+                <ul class="dropdown_menu" id="menuutje">
                     <li>
                         <p>Language</p>
                         <button id="to_English" data-language="en">English</button>
@@ -63,9 +63,11 @@
                     </li>
                     <li>
                         <p>Difficulty</p>
-                        <button id="to_easy" data-difficulty="0">Easy</button>
-                        <button id="to_medium" data-difficulty="1">Medium</button>
-                        <button id="to_hard" data-difficulty="2">Hard</button>
+                        <button id="to_makkelijk" data-difficulty="0">Makkelijk</button>
+                        <button id="to_gemiddeld" data-difficulty="1">Gemiddeld</button>
+                        <button id="to_moeizaam" data-difficulty="2">Moeizaam</button>
+                        <button id="to_ingewikkeld" data-difficulty="3">Ingewikkeld</button>
+                        <button id="to_onmogelijk" data-difficulty="4">Onmogelijk</button>
                     </li>
                     <li>
                         <p>Appearance</p> 
@@ -99,11 +101,11 @@
       </select>
       <label>Difficulty:</label>
       <select id="difficulty">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
       </select>
     </div>
         <div class="row">
@@ -112,7 +114,7 @@
         <label id="timer">time:None</label>
         </div>
         <div id="Word-guide-container">
-            <p>test</p>
+            <p>Druk op "Reset" om te beginnen</p>
         </div>
         <input type="text" id="main-input">
     </main>
