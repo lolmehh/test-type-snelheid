@@ -3,20 +3,6 @@ html {height: 100%;}
 
 * {box-sizing: border-box;}
 
-/*:root {
-  --bg_gradient_0: #1a135a;
-  --bg_gradient_100: #265bea; 
-  --title_and_icon: #d3d3d3;
-  --icon_hover: #85a7f7;
-  --icon_active: #0A2463;
-  --tooltip_background: black;
-  --tooltip_text: #eff2fc;
-  --menu_gradient_0: #265bea;
-  --menu_gradient_60: #5681F1;
-  --menu_gradient_100: #85a7f7;
-  --regular_text: #0A2463;
-}*/
-
 :root {
   --bg_gradient_0: #1a135a;
   --bg_gradient_100: #265bea; 
@@ -36,6 +22,9 @@ html {height: 100%;}
   --title_and_icon: #b4b4b4;
   --bg_gradient_0: #140E44;
   --bg_gradient_100: #2037A2;
+  --menu_gradient_0: #063bCa;
+  --menu_gradient_60: #3661D1;
+  --menu_gradient_100: #6587D7;
 }
 
 main {
@@ -242,4 +231,14 @@ body {
   padding: 20px;
   border-radius: 16px;
   background: var(--chart_bg);
+}
+
+.dropdown_menu button{
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: var(--regular_text)
+}
+
+.dropdown_menu button:disabled{
+  color: var(--title_and_icon)
 }
