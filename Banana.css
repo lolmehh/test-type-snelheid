@@ -43,7 +43,12 @@ h1 {
   font-weight: 400;
   font-style: normal;
   white-space: nowrap;
-  color: var(--title_and_icon)
+  color: var(--title_and_icon);
+
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+  font-size: clamp(2rem, 8vw, 7rem);
+  font-weight: 400;
+  font-style: normal;
 }
  
 h2 {
