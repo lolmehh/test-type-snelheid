@@ -59,12 +59,19 @@ async function onReset(){
     correctWords = 0;
     correctChars = 0;
     currentWordIndex = 0;
-    scheduledTimerUpdate = null;
+    timeHistory = [];
+    startTime = null;
+    if (scheduledTimerUpdate) {
+        clearInterval(scheduledTimerUpdate);
+        scheduledTimerUpdate = null;
+    }
     wpmLabel.innerHTML = "Speed: -- "
     charLabel.innerHTML = "Chars: --"
     timerLabel.innerHTML = "Time: 0s / " + TIMER_LENGTH + "s"
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
+    inputBox.disabled = false;
+    inputBox.value = "";
 }
 resetBtn.addEventListener("click", () => onReset())
 
@@ -93,7 +100,7 @@ function checkUserInput_New(){
         currentWordIndex++;//move to the next word
         inputBox.value = "";//clear the input box for the next word
         generateWords(selectedLanguage, selectedDifficulty, 1, false)        
-        GUI_guideWords[1].style.color = "blue";//mark the next word as the current one
+        GUI_guideWords[1].style.color = "Red";//mark the next word as the current one
         GUI_guideWords[0].remove();
         timeHistory.push([Date.now(), correctWords, correctChars, typedChars]);
         return true;//new word typed

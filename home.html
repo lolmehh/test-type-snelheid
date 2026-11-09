@@ -12,7 +12,43 @@
 
     <script src="Java_styles_banana.js" defer></script>
     <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
+    <script type="module" src="../Backend/TypTest/engine.js"></script>
 </head>
+
+<style>
+ 
+  .box {
+    width: 420px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .row label { flex: 1; }
+  .full-label { width: 100%; }
+  input[type="text"], select, button {
+    font: inherit;
+    padding: 8px 10px;
+    border: 1px solid #b3e9b3;
+    border-radius: 4px;
+    background: #fff;
+  }
+  button { cursor: pointer; background-color: brown;}
+  input[type="text"] { width: 100%; }
+
+  #Word-guide-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;   /* space between words */
+}
+
+</style>
+
 <body onload="check_storage">
     <header>
         <nav>
@@ -22,14 +58,14 @@
                 <ul class="dropdown_menu show" id="menuutje">
                     <li>
                         <p>Language</p>
-                        <button id="to_English">English</button>
-                        <button id="to_Dutch">Nederlands</button>
+                        <button id="to_English" data-language="en">English</button>
+                        <button id="to_Dutch" data-language="nl">Nederlands</button>
                     </li>
                     <li>
                         <p>Difficulty</p>
-                        <button id="to_easy">Easy</button>
-                        <button id="to_medium">Medium</button>
-                        <button id="to_hard">Hard</button>
+                        <button id="to_easy" data-difficulty="0">Easy</button>
+                        <button id="to_medium" data-difficulty="1">Medium</button>
+                        <button id="to_hard" data-difficulty="2">Hard</button>
                     </li>
                     <li>
                         <p>Appearance</p> 
@@ -51,18 +87,34 @@
     <main>
         <div class="title">
             <h1>Type tester</h1>
-        </div>
-        <div class="live-stats">
-            <h2><span>0</span> rpm</h2>
-            <h2><span>0</span> Errors</h2>
-
-            <div class="Score">
-
             </div>
+        <div class="box">
+        <div class="box">
+    <div class="row">
+      <button type="button", id="reset-btn">Reset</button>
+      <label>Language:</label>
+      <select id="language">
+        <option>nl</option>
+        <option>en</option>
+      </select>
+      <label>Difficulty:</label>
+      <select id="difficulty">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+        <div class="row">
+        <label id="wpm-count">wpm:None</label>
+        <label id="char-count">chars:None</label>
+        <label id="timer">time:None</label>
         </div>
+        <div id="Word-guide-container">
+            <p>test</p>
+        </div>
+        <input type="text" id="main-input">
     </main>
-    <footer>
-        
-    </footer>
 </body>
 </html>
