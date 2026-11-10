@@ -257,3 +257,181 @@ body {
   font-weight: 700;
   opacity: 1;
 }
+
+.typing_label{
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+  font-size: clamp(0.7rem, 2.0vw, 4.5rem);
+  font-weight: 400;
+  font-style: normal;
+}
+
+.typing_dropdown{
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+  font-size: clamp(0.7rem, 2.0vw, 4.5rem);
+  font-weight: 400;
+  font-style: normal;
+}
+
+.typing_guide_word_container{
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+  font-size: clamp(0.8rem, 2.2vw, 4.7rem);
+  font-weight: 400;
+  font-style: normal;
+  background-color: #03020221;
+}
+
+.typing-box {
+  width: min(900px, 94vw);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.typing-header {
+  height: 120px;
+  padding: 0;
+}
+
+.typing-main {
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px 40px;
+}
+
+.typing-main .typing-heading-divider {
+  width: min(1100px, 100%);
+  margin: 0 auto 32px;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.typing-main .title {
+  position: static;
+  transform: none;
+  width: max-content;
+  margin: 16px 0;
+}
+
+.typing-box .row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.typing-box .row label {
+  flex: 1;
+}
+
+.typing-box .full-label {
+  width: 100%;
+}
+
+.typing-box input[type="text"],
+.typing-box select,
+.typing-box button {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid #4d797a;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.typing-box button {
+  cursor: pointer;
+  background-color: rgb(65, 75, 173);
+}
+
+.typing-box input[type="text"] {
+  width: 100%;
+}
+
+.typing-box #Word-guide-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+
+.typing-box .run-graph-section {
+  margin-top: 8px;
+}
+
+.typing-box .run-graph-section h2,
+.typing-box .run-chart-message {
+  color: var(--title_and_icon);
+  text-align: center;
+}
+
+.typing-box .run-graph {
+  height: 220px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--chart_bg);
+}
+
+.typing-box .run-graph canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.typing-box .run-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  color: var(--title_and_icon);
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.typing-box .run-chart-message {
+  min-height: 1.5em;
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+  font-weight: 200;
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
+.typing_nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 10px;
+  z-index: 10;
+}
+
+.typing_nav .tooltip {
+  position: absolute;
+  pointer-events: none;
+}
+
+.typing_nav .settings,
+.typing_nav .statistics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+@media (min-width: 900px) {
+  .typing-main {
+    padding-top: 64px;
+  }
+
+  .typing-main .title {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+  }
+}

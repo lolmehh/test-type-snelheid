@@ -107,7 +107,10 @@ new Chart(ctx, {
 
 const RUN_HISTORY_KEY = "typingTestRuns";
 const historyMessage = document.getElementById("run-history-message");
-const historySort = document.getElementById("run-history-sort");
+const historySorts = {
+    nl: document.getElementById("run-history-sort-nl"),
+    en: document.getElementById("run-history-sort-en")
+};
 const clearHistoryButton = document.getElementById("clear-run-history");
 const relativeTimeFormatter = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
 const difficultyColors = ["#55c1a7", "#5b9bd5", "#f2c14e", "#ed8b5a", "#d66ba0"];
@@ -286,9 +289,11 @@ function updateHighlightedCurve(chart) {
 }
 
 function renderRunHistoryTable(language) {
-    const sortMode = historySort.value;
+    const sortMode = historySorts[language].value;
     const historyRows = document.getElementById("run-history-rows-" + language);
     const sortedRuns = orderedRuns.filter(run => run.language === language);
+    const completedRunsLabel = document.getElementById("completed-runs-" + language);
+    completedRunsLabel.textContent = `${sortedRuns.length} completed ${sortedRuns.length === 1 ? "run" : "runs"}`;
     sortedRuns.sort((a, b) => {
         const byDate = Date.parse(a.date) - Date.parse(b.date);
         const byDifficulty = Number(a.difficulty) - Number(b.difficulty);
@@ -350,8 +355,9 @@ function showRunHistory() {
         .sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
         .map((run, index) => ({ ...run, runNumber: index + 1 }));
 
+    historyMessage.hidden = orderedRuns.length > 0;
     historyMessage.textContent = orderedRuns.length
-        ? orderedRuns.length + " completed " + (orderedRuns.length === 1 ? "run" : "runs")
+        ? ""
         : "Complete a typing test to start tracking your progress.";
 
     renderLanguageChart("nl", "run-history-chart-nl");
@@ -367,6 +373,7 @@ clearHistoryButton.addEventListener("click", () => {
         localStorage.removeItem(RUN_HISTORY_KEY);
     } catch (error) {
         console.error("Could not clear typing run history:", error);
+        historyMessage.hidden = false;
         historyMessage.textContent = "Saved run history could not be cleared.";
         return;
     }
@@ -376,6 +383,7 @@ clearHistoryButton.addEventListener("click", () => {
         const chart = Chart.getChart(canvas);
         if (chart) chart.destroy();
     });
+    historyMessage.hidden = false;
     historyMessage.textContent = "Run history cleared.";
     renderLanguageChart("nl", "run-history-chart-nl");
     renderLanguageChart("en", "run-history-chart-en");
@@ -383,8 +391,7 @@ clearHistoryButton.addEventListener("click", () => {
     renderRunHistoryTable("en");
 });
 
-historySort.addEventListener("change", () => {
-    renderRunHistoryTable("nl");
-    renderRunHistoryTable("en");
+Object.entries(historySorts).forEach(([language, sortSelect]) => {
+    sortSelect.addEventListener("change", () => renderRunHistoryTable(language));
 });
 showRunHistory();

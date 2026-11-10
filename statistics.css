@@ -48,6 +48,27 @@ nav {
     text-align: center;
 }
 
+.statistics-main {
+    padding: 130px 24px 40px;
+}
+
+.statistics-main > .title {
+    position: relative;
+    top: -160px;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.statistics-heading-divider {
+    width: min(1100px, 100%);
+    margin: 0 auto 28px;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
 h1 {
     margin: 0;
     font-family: "Zen Dots", sans-serif;
@@ -120,7 +141,7 @@ main {
 }
 
 .personal-statistics {
-    margin-top: 64px;
+    margin-top: 0;
 }
 
 .statistics-divider {
@@ -128,6 +149,13 @@ main {
     margin: 72px auto 48px;
     border: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.language-divider {
+    width: 100%;
+    margin: 36px auto 8px;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .language-progress {
@@ -143,20 +171,37 @@ main {
 }
 
 .run-history-sort {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
+    margin: 0;
+    max-width: 62%;
     font-family: 'Lucida Console', monospace;
-}
-
-.run-history-sort select {
     padding: 8px 10px;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 6px;
-    font: inherit;
+    font-size: 0.8rem;
+}
+
+.run-history-table-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    height: clamp(280px, 32vw, 400px);
+}
+
+.run-history-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.completed-runs {
+    margin: 0;
+    font-family: 'Lucida Console', monospace;
+    font-size: 0.9rem;
+    text-align: left;
 }
 
 .clear-history-button {
@@ -179,8 +224,10 @@ main {
 }
 
 .run-history-table-wrap {
+    flex: 1;
     width: 100%;
     min-width: 0;
+    min-height: 0;
     overflow-x: auto;
     border-radius: 12px;
     background: rgba(15, 20, 65, 0.25);
@@ -229,6 +276,10 @@ main {
     .language-progress-grid .chart {
         height: 320px;
     }
+
+    .run-history-table-section {
+        height: 320px;
+    }
 }
 
 .navigation {
@@ -238,6 +289,20 @@ main {
     display: flex;
     margin-top: 10px;
     z-index: 10;
+}
+
+.statistics_nav {
+    width: 100%;
+    padding: 0 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.statistics_nav .dropdown_menu {
+    height: 210px;
 }
 
 .dropdown_menu {
@@ -263,10 +328,50 @@ main {
   position: relative;
 }
 
+.statistics_nav .back_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    text-decoration: none;
+}
+
 .icon:hover {
     color: #8787d9;
 }
 
 .icon:active {
     color: #5771E2;
+}
+
+@media (max-width: 600px) {
+    .run-history-table-header {
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+
+    .completed-runs {
+        font-size: 0.7rem;
+    }
+
+    .run-history-sort {
+        width: clamp(100px, 36vw, 140px);
+        max-width: 50%;
+        padding: 6px;
+        font-size: 0.7rem;
+    }
+
+    .statistics_nav .settings,
+    .statistics_nav .back_button {
+        width: 56px;
+        height: 56px;
+    }
+
+    .statistics_nav .icon {
+        font-size: 42px;
+    }
+
+    .statistics-main > .title h1 {
+        font-size: clamp(1.25rem, 5vw, 1.5rem);
+    }
 }

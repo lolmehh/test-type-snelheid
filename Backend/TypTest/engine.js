@@ -51,7 +51,7 @@ function drawRunChart() {
 
     const points = WPMHistory;
     const maxWpm = Math.max(20, ...points.map(point => point[1]));
-    const padding = { top: 16, right: 14, bottom: 28, left: 42 };
+    const padding = { top: 16, right: 14, bottom: 52, left: 56 };
     const graphWidth = width - padding.left - padding.right;
     const graphHeight = height - padding.top - padding.bottom;
     const maxSeconds = TIMER_LENGTH;

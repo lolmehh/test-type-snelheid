@@ -15,74 +15,10 @@
     <script type="module" src="Backend/TypTest/engine.js"></script>
 </head>
 
-<style>
- 
-  .typing-box {
-    width: min(900px, 94vw);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 0 auto;
-  }
-  .row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .row label { flex: 1; }
-  .full-label { width: 100%; }
-  input[type="text"], select, button {
-    font: inherit;
-    padding: 8px 10px;
-    border: 1px solid #b3e9b3;
-    border-radius: 4px;
-    background: #fff;
-  }
-  button { cursor: pointer; background-color: brown;}
-  input[type="text"] { width: 100%; }
-
-  #Word-guide-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4em;   /* space between words */
-}
-
-.run-graph-section {
-  margin-top: 8px;
-}
-.run-graph-section h2, .run-chart-message {
-  color: var(--title_and_icon);
-  text-align: center;
-}
-.run-graph {
-  height: 220px;
-  width: 100%;
-  padding: 10px;
-  border-radius: 12px;
-  background: var(--chart_bg);
-}
-.run-graph canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.run-stats {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  color: var(--title_and_icon);
-}
-.run-chart-message {
-  min-height: 1.5em;
-}
-
-</style>
-
 <body>
-    <header>
+    <header class="typing-header">
         <nav>
-            <div class="navigation">
+            <div class="navigation typing_nav">
                 <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
                 <div class="tooltip" id="tt_settings">Settings</div>
                 <ul class="dropdown_menu" id="menuutje">
@@ -116,20 +52,21 @@
         
     </header>
 
-    <main>
+    <main class="typing-main">
         <div class="title">
             <h1>Type tester</h1>
-            </div>
+        </div>
+        <hr class="typing-heading-divider">
         <div class="typing-box">
     <div class="row">
-      <button type="button", id="reset-btn">Reset</button>
-      <label>Language:</label>
-      <select id="language">
+      <button type="button", id="reset-btn" class="typing_label">Reset</button>
+      <label class="typing_label">Language:</label>
+      <select id="language" class="typing_dropdown">
         <option>nl</option>
         <option>en</option>
       </select>
-      <label>Difficulty:</label>
-      <select id="difficulty">
+      <label class="typing_label">Difficulty:</label>
+      <select id="difficulty" class="typing_dropdown">
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -137,8 +74,8 @@
         <option value="4">4</option>
       </select>
     </div>
-        <div id="Word-guide-container">
-            <p>Druk op "Reset" om te beginnen</p>
+        <div id="Word-guide-container" class="typing_guide_word_container">
+            <p class="typing_label">Druk op "Reset" om te beginnen</p>
         </div>
         <input type="text" id="main-input">
         <section class="run-graph-section" aria-labelledby="run-graph-title">
