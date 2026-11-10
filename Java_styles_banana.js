@@ -16,7 +16,10 @@ const difficultyButtons = [
 
 function setLanguage(lang) {
   const safeLang = (lang || "nl").toLowerCase()
-  if (languageSelect) languageSelect.value = safeLang
+  if (languageSelect && languageSelect.value !== safeLang) {
+    languageSelect.value = safeLang
+    languageSelect.dispatchEvent(new Event("change", { bubbles: true }))
+  }
   localStorage.setItem("language", safeLang)
 
   if (to_English) to_English.disabled = safeLang === "en"
@@ -26,7 +29,10 @@ function setLanguage(lang) {
 function setDifficulty(level) {
   const safeLevel = Math.max(0, Math.min(4, Number(level) || 0))
 
-  if (difficultySelect) difficultySelect.value = String(safeLevel)
+  if (difficultySelect && difficultySelect.value !== String(safeLevel)) {
+    difficultySelect.value = String(safeLevel)
+    difficultySelect.dispatchEvent(new Event("change", { bubbles: true }))
+  }
   localStorage.setItem("difficulty", String(safeLevel))
 
   difficultyButtons.forEach((button, index) => {
@@ -77,10 +83,15 @@ const knopje_menu = document.getElementById("knopje_menu")
 const menuutje = document.getElementById("menuutje")
 
 if (knopje_menu && menuutje) {
-  knopje_menu.addEventListener("click", () => {menuutje.classList.toggle("show")})
+  knopje_menu.addEventListener("click", () => {
+    const isOpen = menuutje.classList.toggle("show")
+    knopje_menu.setAttribute("aria-expanded", String(isOpen))
+  })
   window.addEventListener("click", function(e) {
-      if (!(e.target.closest("#knopje_menu")) && menuutje.classList.contains("show")) {
-          menuutje.classList.remove("show")
-      }
+    if (!(e.target instanceof Element) || e.target.closest("#knopje_menu")) return
+    menuutje.classList.remove("show")
+    knopje_menu.setAttribute("aria-expanded", "false")
   })
 }
+
+check_storage()

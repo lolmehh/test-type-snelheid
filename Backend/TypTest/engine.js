@@ -49,7 +49,7 @@ function drawRunChart() {
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     context.clearRect(0, 0, width, height);
 
-    const points = WPMHistory.length ? WPMHistory : [[0, 0]];
+    const points = WPMHistory;
     const maxWpm = Math.max(20, ...points.map(point => point[1]));
     const padding = { top: 16, right: 14, bottom: 28, left: 42 };
     const graphWidth = width - padding.left - padding.right;
@@ -84,26 +84,28 @@ function drawRunChart() {
     context.fillText("WPM", 0, 0);
     context.restore();
 
-    const plotted = points.map(([seconds, wpm]) => ({
-        x: padding.left + Math.min(seconds, maxSeconds) / maxSeconds * graphWidth,
-        y: padding.top + (1 - wpm / maxWpm) * graphHeight
-    }));
+    if (points.length) {
+        const plotted = points.map(([seconds, wpm]) => ({
+            x: padding.left + Math.min(seconds, maxSeconds) / maxSeconds * graphWidth,
+            y: padding.top + (1 - wpm / maxWpm) * graphHeight
+        }));
 
-    context.beginPath();
-    plotted.forEach((point, index) => {
-        if (index === 0) context.moveTo(point.x, point.y);
-        else context.lineTo(point.x, point.y);
-    });
-    context.strokeStyle = "#85a7f7";
-    context.lineWidth = 3;
-    context.stroke();
-
-    plotted.forEach(point => {
         context.beginPath();
-        context.arc(point.x, point.y, 3.5, 0, Math.PI * 2);
-        context.fillStyle = "#ffffff";
-        context.fill();
-    });
+        plotted.forEach((point, index) => {
+            if (index === 0) context.moveTo(point.x, point.y);
+            else context.lineTo(point.x, point.y);
+        });
+        context.strokeStyle = "#85a7f7";
+        context.lineWidth = 3;
+        context.stroke();
+
+        plotted.forEach(point => {
+            context.beginPath();
+            context.arc(point.x, point.y, 3.5, 0, Math.PI * 2);
+            context.fillStyle = "#ffffff";
+            context.fill();
+        });
+    }
 }
 
 function updateRunStats() {
@@ -188,6 +190,8 @@ async function onReset(){
     inputBox.value = "";
 }
 resetBtn.addEventListener("click", () => onReset())
+languageSelect.addEventListener("change", () => onReset());
+difficultySelect.addEventListener("change", () => onReset());
 
 
 

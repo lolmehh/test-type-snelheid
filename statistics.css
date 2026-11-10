@@ -13,10 +13,10 @@ body {
     margin: 0;
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(135deg, #1a135a 0%, #265bea 100%);
+    background: linear-gradient(135deg, var(--bg_gradient_0) 0%, var(--bg_gradient_100) 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #D3D3D3;
+    color: var(--title_and_icon);
 }
 
 header {
@@ -31,11 +31,21 @@ nav {
 }
 
 .title {
-    position: static;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     text-align: center;
-    width: 100%;
+    width: max-content;
+    max-width: calc(100% - 140px);
+    z-index: 1;
+}
+
+.title h1 {
+    width: auto;
+    text-align: center;
 }
 
 h1 {
@@ -106,50 +116,119 @@ main {
     padding: 20px;
     border-radius: 16px;
 
-    background: rgba(15, 20, 65, 0.25);
+    background: var(--chart_bg);
 }
 
 .personal-statistics {
     margin-top: 64px;
 }
 
-.run-history-list {
-    width: 100%;
-    margin-top: 36px;
+.statistics-divider {
+    width: min(1100px, 100%);
+    margin: 72px auto 48px;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-.run-history-list h2 {
-    margin-bottom: 20px;
+.language-progress {
+    width: 100%;
+    margin-top: 28px;
+}
+
+.language-progress h3 {
+    margin: 0 0 16px;
+    font-family: 'Lucida Console', monospace;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+}
+
+.run-history-sort {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    font-family: 'Lucida Console', monospace;
+}
+
+.run-history-sort select {
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    font: inherit;
+}
+
+.clear-history-button {
+    padding: 8px 12px;
+    border: 1px solid #ff6b6b !important;
+    border-radius: 6px;
+    background: #a71930 !important;
+    color: #ffffff !important;
+    cursor: pointer;
+    font: inherit;
+}
+
+.clear-history-button:hover {
+    background: #c6283d !important;
+}
+
+.clear-history-button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
 }
 
 .run-history-table-wrap {
     width: 100%;
+    min-width: 0;
     overflow-x: auto;
     border-radius: 12px;
     background: rgba(15, 20, 65, 0.25);
 }
 
-.run-history-list table {
+.run-history-table-wrap table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
     font-family: 'Lucida Console', monospace;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
-.run-history-list th,
-.run-history-list td {
-    padding: 14px 16px;
+.run-history-table-wrap th,
+.run-history-table-wrap td {
+    padding: 12px 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     white-space: nowrap;
 }
 
-.run-history-list th {
+.run-history-table-wrap th {
     color: #ffffff;
 }
 
-.run-history-list tbody tr:last-child td {
+.run-history-table-wrap tbody tr:last-child td {
     border-bottom: 0;
+}
+
+.language-progress-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+}
+
+.language-progress-grid .chart {
+    height: clamp(280px, 32vw, 400px);
+}
+
+@media (max-width: 900px) {
+    .language-progress-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .language-progress-grid .chart {
+        height: 320px;
+    }
 }
 
 .navigation {
@@ -158,6 +237,11 @@ main {
     left: 0;
     display: flex;
     margin-top: 10px;
+    z-index: 10;
+}
+
+.dropdown_menu {
+    z-index: 11;
 }
 
 .settings {
