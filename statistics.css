@@ -44,17 +44,17 @@ nav {
 }
 
 .statistics-main {
-    padding: 130px 24px 40px;
+    padding: 20px 24px 40px;
 }
 
 .statistics-main > .title {
     position: relative;
-    top: -160px;
+    top: 0;
     left: auto;
     transform: none;
     width: 100%;
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 .statistics-heading-divider {
@@ -72,7 +72,7 @@ h1 {
     font-style: normal;
 
     white-space: nowrap;
-    color: #D3D3D3;
+    color: var(--title_and_icon);
 }
 
 h2 {
