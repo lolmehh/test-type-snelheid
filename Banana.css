@@ -11,7 +11,7 @@ html {height: 100%;}
   --unselected_option: #ffffff;
   --section_text: #ffffff;
   --icon_hover: #85a7f7;
-  --icon_active: #0A2463;
+  --icon_active: #222fa9;
   --tooltip_text_from: rgba(239, 242, 252, 0);
   --tooltip_text_to: rgba(239, 242, 252, 0.75);
   --menu_gradient_0: #265bea;
@@ -19,6 +19,7 @@ html {height: 100%;}
   --menu_gradient_100: #85a7f7;
   --regular_text: #0A2463;
   --chart_bg: rgba(15, 20, 65, 0.25);
+  --divider: rgba(255, 255, 255, 0.35);
 }
 
 .darkmode {
@@ -36,6 +37,7 @@ html {height: 100%;}
 main {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 50px 24px 40px;
 }
@@ -80,10 +82,11 @@ h2 {
 
   color: var(--title_and_icon);
   text-align: center;
+  z-index: 1;
 }
 
-nav {display: flex;}
-.statistics_nav {
+nav {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -104,14 +107,14 @@ body {
   }
 
 .navigation {
-  gap: 5px  ;
+  gap: 5px;
   display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  align-items: stretch; 
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   position: relative;
-  Margin-top: 10px;
+  margin-top: 10px;
+  z-index: 10;
 }
 
 .settings, .statistics, .back_button {
@@ -148,8 +151,8 @@ body {
 /*.settings:active {
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
-}
-*/
+}*/
+
 @keyframes ronddraaien_icoontje {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
@@ -167,17 +170,16 @@ body {
   visibility: hidden;
   width: 7em;
   position: relative;
-  top: 0px;
+  top: 100px;
+  left: 70px;
+  z-index: -1;
 }
-.settings {position: relative;}
 
-.statistics:hover ~ #tt_statistics, .settings:hover ~ #tt_settings {
+
+.statistics:hover ~ #tt_statistics, .settings:hover ~ #tt_settings, .back_button:hover ~ #tt_home {
   animation-name: tooltip_verschijnt;
   animation-duration: 0.2s;
-}
-.settings:hover ~ #tt_settings {
-  animation-name: tooltip_verschijnt;
-  animation-duration: 0.2s;
+  visibility: visible;
 }
 
 .dropdown_menu{
@@ -204,9 +206,8 @@ body {
   animation-name: menu_ontstaat;
   animation-duration: 0.5s;
 }
-.show ~ .icon {
-  color: var(--icon_active);
-}
+.show ~ .icon {color: var(--icon_active);}
+.darkmode .show ~ .icon {color: var(--title_and_icon);}
 
 .chart-container {
   width: 100%;
@@ -283,7 +284,7 @@ body {
   width: min(1100px, 100%);
   margin: 0 auto 32px;
   border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-top: 1px solid var(--divider);
 }
 
 .typing-main .title {
@@ -296,7 +297,7 @@ body {
 .typing-box .row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 140px;
 }
 
 .typing-box .row label {flex: 1;}
@@ -402,7 +403,7 @@ body {
 }
 
 .typing_nav .settings,
-.typing_nav .statistics {
+.typing_nav .statistics, .statistics_nav .settings, .statistics_nav .back_button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -410,9 +411,7 @@ body {
 }
 
 @media (min-width: 900px) {
-  .typing-main {
-    padding-top: 64px;
-  }
+  .typing-main {padding-top: 64px;}
 
   .typing-main .title {
     position: absolute;
@@ -423,7 +422,12 @@ body {
   }
 }
 
+#Word-guide-container p {color:rgba(239, 242, 252, 0.75)}
+
 /*#run-graph-section {visibility: hidden; }*/
 .klaar {visibility: visible;}
 
-#timer_on_page {font: inherit;}
+#timer_on_page {
+  font: inherit;
+  padding-left: 15px;
+}

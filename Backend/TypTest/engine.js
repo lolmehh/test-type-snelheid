@@ -127,7 +127,10 @@ function recordRun() {
         language: selectedLanguage,
         difficulty: selectedDifficulty
     };
-
+    if (correctChars == 0) {
+        if (runChartMessage) runChartMessage.textContent = "Empty run; try again";
+        return;
+    }
     try {
         const runs = JSON.parse(localStorage.getItem(RUN_HISTORY_KEY) || "[]");
         if (!Array.isArray(runs)) throw new Error("Run history must be an array.");
@@ -219,7 +222,8 @@ function checkUserInput_New(){
         currentWordIndex++;//move to the next word
         inputBox.value = "";//clear the input box for the next word
         generateWords(selectedLanguage, selectedDifficulty, 1, false)        
-        GUI_guideWords[1].style.color = "Red";//mark the next word as the current one
+        GUI_guideWords[1].style.color = "White";//mark the next word as the current one
+        GUI_guideWords[1].style.fontWeight = "bold";
         GUI_guideWords[0].remove();
         timeHistory.push([Date.now(), correctWords, correctChars, typedChars]);
         updateRunStats();
@@ -269,7 +273,7 @@ function updateTimer(){
         runGraphSection.classList.add("klaar");
     }
     else {runGraphSection.classList.remove("klaar");}
-    timerOnPage.innerHTML(durationMs);
+    timerOnPage.innerHTML(durationMs); //kweenie waarom ie niet wertk ):
 }
 
 function onCharTyped () {

@@ -19,8 +19,7 @@
     <header class="typing-header" style="margin-top: 20px;">
         <nav>
             <div class="navigation typing_nav">
-                <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
-                <div class="tooltip" id="tt_settings">Settings</div>
+
                 <ul class="dropdown_menu" id="menuutje">
                     <li>
                         <p>Typing language</p>
@@ -40,14 +39,14 @@
                         <button id="get_light">Light mode</button>
                         <button id="get_dark">Dark mode</button>
                     </li>
-                </ul>
-                
+                </ul> 
+                <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
+                <div class="tooltip" id="tt_settings">Settings</div>              
                 <a href="statistics.html" class="statistics icon"><i class="fa-solid fa-chart-column"></i></a>
                 <div class="tooltip" id="tt_statistics">Statistics</div>
                 
             </div>
-
-            
+           
         </nav>
         
     </header>
@@ -59,31 +58,30 @@
         <hr class="typing-heading-divider">
         <div class="typing-box">
     <div class="row">
-      <button type="button", id="reset-btn" class="typing_label">Reset</button>
-      <label class="typing_label">Language:</label>
+      <div><button type="button", id="reset-btn" class="typing_label">Reset</button></div>
+      <div><label class="typing_label">Language:</label>
       <select id="language" class="typing_dropdown">
         <option>nl</option>
         <option>en</option>
-      </select>
-      <label class="typing_label">Difficulty:</label>
+      </select></div>
+      <div><label class="typing_label">Difficulty:</label>
       <select id="difficulty" class="typing_dropdown">
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
-      </select>
+      </select></div>
     </div>
         <div id="Word-guide-container" class="typing_guide_word_container">
             <p class="typing_label">Press "Reset" to begin</p>
         </div>
-        <input type="text" id="main-input" placeholder="Click here and start typing..." placeholder="Placeholder text">
+        <input type="text" id="main-input" placeholder="Click here and start typing...">
         <div id="timer_on_page"><p>0:00:00</p></div>
         <section id="run-graph-section" aria-labelledby="run-graph-title">
-          <p>KLAAR!</p>
           <h2 id="run-graph-title">Speed during this run</h2>
           <div class="run-graph">
-            <canvas id="run-speed-chart" role="img" aria-label="Graph of typing speed over time during this run"></canvas>
+            <a href="statistics.html"><canvas id="run-speed-chart" role="img" aria-label="Graph of typing speed over time during this run"></canvas></a>
           </div>
           <div class="run-stats" aria-live="polite">
             <span id="wpm-count">Speed: --</span>

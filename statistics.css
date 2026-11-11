@@ -1,51 +1,26 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
-html {min-height: 100%;}
-* {box-sizing: border-box;}
+:root {
+    --bg_gradient_0: #1a135a;
+    --bg_gradient_100: #265bea; 
+    --title_and_icon: #d3d3d3;
+    --selected_option: #222fa9;
+    --unselected_option: #ffffff;
+    --section_text: #ffffff;
+    --icon_hover: #85a7f7;
+    --icon_active: #222fa9;
+    --tooltip_text_from: rgba(239, 242, 252, 0);
+    --tooltip_text_to: rgba(239, 242, 252, 0.75);
+    --menu_gradient_0: #265bea;
+    --menu_gradient_60: #5681F1;
+    --menu_gradient_100: #85a7f7;
+    --regular_text: #0A2463;
+    --chart_bg: rgba(15, 20, 65, 0.25);
+    --divider: rgba(255, 255, 255, 0.35);
+  }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    width: 100%;
-    background: linear-gradient(135deg, var(--bg_gradient_0) 0%, var(--bg_gradient_100) 100%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: var(--title_and_icon);
-}
-
-header {
-    width: 100%;
-    padding: 40px 20px 0;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.title {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    width: max-content;
-    max-width: calc(100% - 140px);
-    z-index: 1;
-}
-
-.title h1 {
-    width: auto;
-    text-align: center;
-}
-
-.statistics-main {
-    padding: 20px 24px 40px;
-}
+.statistics-main {padding: 20px 24px 40px;}
 
 .statistics-main > .title {
     position: relative;
@@ -61,44 +36,7 @@ nav {
     width: min(1100px, 100%);
     margin: 0 auto 28px;
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.35);
-}
-
-h1 {
-    margin: 0;
-    font-family: "Zen Dots", sans-serif;
-    font-size: clamp(2rem, 8vw, 7rem);
-    font-weight: 400;
-    font-style: normal;
-
-    white-space: nowrap;
-    color: var(--title_and_icon);
-}
-
-h2 {
-    margin: 0;
-    font-size: clamp(1rem, 3.5vw, 2.5rem);
-    font-weight: 400;
-    text-align: center;
-}
-
-main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    padding: 50px 24px 40px;
-}
-
-.navigation {
-  gap: 5px  ;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  align-items: stretch; 
-  position: relative;
+    border-top: 1px solid var(--divider);
 }
 
 .chart-container {
@@ -139,14 +77,14 @@ main {
     width: min(1100px, 100%);
     margin: 72px auto 48px;
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    border-top: 1px solid var(--divider);
 }
 
 .language-divider {
     width: 100%;
     margin: 36px auto 8px;
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1px solid var(--divider);
 }
 
 .language-progress {
@@ -166,7 +104,7 @@ main {
     max-width: 62%;
     font-family: 'Lucida Console', monospace;
     padding: 8px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid  var(--divider);
     border-radius: 6px;
     font-size: 0.8rem;
 }
@@ -205,9 +143,7 @@ main {
     font: inherit;
 }
 
-.clear-history-button:hover {
-    background: #c6283d !important;
-}
+.clear-history-button:hover {background: #c6283d !important;}
 
 .clear-history-button:focus-visible {
     outline: 2px solid #ffffff;
@@ -235,17 +171,13 @@ main {
 .run-history-table-wrap th,
 .run-history-table-wrap td {
     padding: 12px 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid  var(--divider);
     white-space: nowrap;
 }
 
-.run-history-table-wrap th {
-    color: #ffffff;
-}
+.run-history-table-wrap th {color: #ffffff;}
 
-.run-history-table-wrap tbody tr:last-child td {
-    border-bottom: 0;
-}
+.run-history-table-wrap tbody tr:last-child td {border-bottom: 0;}
 
 .language-progress-grid {
     display: grid;
@@ -255,22 +187,11 @@ main {
     width: 100%;
 }
 
-.language-progress-grid .chart {
-    height: clamp(280px, 32vw, 400px);
-}
+.language-progress-grid .chart {height: clamp(280px, 32vw, 400px);}
 
 @media (max-width: 900px) {
-    .language-progress-grid {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .language-progress-grid .chart {
-        height: 320px;
-    }
-
-    .run-history-table-section {
-        height: 320px;
-    }
+    .language-progress-grid {grid-template-columns: minmax(0, 1fr);}
+    .language-progress-grid .chart, .run-history-table-section {height: 320px;}
 }
 
 .navigation {
@@ -280,9 +201,6 @@ main {
     display: flex;
     margin-top: 10px;
     z-index: 10;
-}
-
-.statistics_nav {
     width: 100%;
     padding: 0 10px;
     flex-direction: row;
@@ -293,31 +211,15 @@ main {
 }
 
 .statistics_nav .dropdown_menu {
-    height: 210px;
+    height: 270px;
+    padding-top: 30px;
+    width: 220px;
+}
+.tooltip {
+    position: relative;
 }
 
-.dropdown_menu {
-    z-index: 11;
-}
-
-.settings {
-  width: 100px;
-  height: 100px;
-  background: transparent;
-  cursor: pointer;
-  z-index: 1;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
-.icon {
-  font-size: 70px;
-  border: none;
-  transition-duration: 0.2s;
-  position: relative;
-}
-
+/*
 .statistics_nav .back_button {
     display: flex;
     align-items: center;
@@ -325,24 +227,14 @@ main {
     line-height: 1;
     text-decoration: none;
 }
-
-.icon:hover {
-    color: #8787d9;
-}
-
-.icon:active {
-    color: #5771E2;
-}
-
+*/
 @media (max-width: 600px) {
     .run-history-table-header {
         flex-wrap: nowrap;
         gap: 6px;
     }
 
-    .completed-runs {
-        font-size: 0.7rem;
-    }
+    .completed-runs {font-size: 0.7rem;}
 
     .run-history-sort {
         width: clamp(100px, 36vw, 140px);
@@ -357,11 +249,9 @@ main {
         height: 56px;
     }
 
-    .statistics_nav .icon {
-        font-size: 42px;
-    }
+    .statistics_nav .icon {font-size: 42px;}
 
-    .statistics-main > .title h1 {
-        font-size: clamp(1.25rem, 5vw, 1.5rem);
-    }
+    .statistics-main > .title h1 {font-size: clamp(1.25rem, 5vw, 1.5rem);}
 }
+
+.back_button {transform: translateX(-120px);}
