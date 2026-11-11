@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Type tester</title>
-    <link href="Banana.css" rel="stylesheet">
+    <link href="../Source/CSS/Banana.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
-    <script src="./Source/Javascript/Global/site-settings.js" defer></script>
+    <script src="../Source/Javascript/Global/site-settings.js" defer></script>
     <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
-    <script type="module" src="./Source/Javascript/typing_page/typing-test.js"></script>
+    <script type="module" src="../Source/Javascript/typing_page/typing-test.js"></script>
 </head>
 
 <body>
@@ -53,8 +53,12 @@
                 <button type="button" class="information icon" id="info-button" aria-label="How this website works">
                     <i class="fa-solid fa-circle-info"></i>
                 </button>
-            </div>           
-        </nav>       
+                <div class="tooltip" id="tt_information">Instructions</div>
+
+            </div>
+           
+        </nav>
+        
     </header>
 
     <div class="info-pop-up hidden" id="info-pop-up" role="dialog" aria-modal="true" aria-labelledby="info-pop-up-title">
@@ -77,6 +81,22 @@
             <h1>Type tester</h1>
         </div>
         <hr class="typing-heading-divider">
+        <div class="typing-box">
+<!--    <div class="row">
+      <div><button type="button", id="reset-btn" class="typing_label">Reset</button></div>
+      <div><label class="typing_label">Language:</label>
+      <select id="language" class="typing_dropdown">
+        <option>nl</option>
+        <option>en</option>
+      </select></div>
+      <div><label class="typing_label">Difficulty:</label>
+      <select id="difficulty" class="typing_dropdown">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select></div>-->
     <div class="typing-box">
         <div class="controls-row">
         <button type="button" id="reset-btn" class="reset-button">
@@ -116,10 +136,11 @@
             <p class="typing_label">Press Start to begin</p>
         </div>
         <div class="time-progress-wrap">
-            <label class="time-progress-label" for="time-progress">Time remaining:</label>
+            <label class="time-progress-label" for="time-progress">Time remaining</label>
             <progress id="time-progress" value="100" max="100" aria-label="Time remaining">100%</progress>
         </div>
         <input type="text" id="main-input" placeholder="Click here and start typing the red word and press space when done...">
+        <div id="timer_on_page"><p>0:00:00</p></div>
         <section id="run-graph-section" aria-labelledby="run-graph-title">
           <h2 id="run-graph-title">Speed during this run:</h2>
           <div class="run-graph">
