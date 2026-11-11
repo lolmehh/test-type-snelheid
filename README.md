@@ -1,12 +1,13 @@
 # Test-typ-snelheid
 **A website to test and improve your typing skills**
-Made by Team 005: TestTypSnelheidTeam team
+
+Made by Team 005: TestTypSnelheidTeam team as a project for Project Informatica
 
 ## Features
 
  - **Language support**: You can type in both english and dutch.
  - **Difficulty rating**: The words are graded by their typing difficulty. Word length, character combinations, row shifts,  finger and hand alterations, etc are all taken in account to determine the difficulty of a word.
- - **Infinite typing**: The limit to how much you can type in a period of time is only your own typing speed!
+ - **Infinite typing**: The limit to how much words you can type in a period of time is only your own typing speed!
  - **Real-time feedback**: You can immediately see your speed, mistakes, amount of typed words and more right after you have finished a test. There is also a real-time graph that updates with each word you haave typed to show cnahges in your speed.
  - **Statistics**: The statistics page is very useful to track your progress with interactive charts and tables. It also shows real-world statistics so you can compare your results to those of an average person.
  - **Progress saving**: The website saves your progress, so even if you close it, your progress is retained(saved locally in the browser). You can always delete it in the settings.
