@@ -43,8 +43,8 @@ new Chart(ctx, {
                 callbacks: {
                     label: function(context) {
                         return context.parsed.y +
-                            "% haalt minstens " +
-                            context.label + " woorden per minuut";
+                            "% achieve at least " +
+                            context.label + " words per minute";
                     }
                 }
             }
@@ -56,7 +56,7 @@ new Chart(ctx, {
 
                 title: {
                     display: true,
-                    text: "Typesnelheid (woorden per minuut)",
+                    text: "Typing speed (words per minute)",
                     color: "#D3D3D3",
                     font: {
                         size: 14
@@ -82,7 +82,7 @@ new Chart(ctx, {
 
                 title: {
                     display: true,
-                    text: "Percentage van de bevolking (%)",
+                    text: "Percentage of the population (%)",
                     color: "#D3D3D3",
                     font: {
                         size: 14

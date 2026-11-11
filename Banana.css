@@ -110,7 +110,7 @@ body {
   Margin-top: 10px;
 }
 
-.settings, .statistics, .back_button {
+.settings, .statistics, .back_button, .information {
   width: 100px;
   height: 100px;
   background: transparent;
@@ -141,6 +141,65 @@ body {
 
 .icon:hover {color: var(--icon_hover);}
 .icon:active {color: var(--icon_active);}
+
+.info-pop-up {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 20, 0.6);
+  z-index: 50;
+  padding: 20px;
+}
+
+.info-pop-up.show {
+  display: flex;
+}
+
+.info-pop-up.hidden {
+  display: none;
+}
+
+.info-pop-up-content {
+  position: relative;
+  width: min(560px, 90vw);
+  background: linear-gradient(180deg, var(--menu_gradient_0) 0%, var(--menu_gradient_60) 60%, var(--menu_gradient_100) 100%);
+  color: var(--section_text);
+  border: 2px solid;
+  border-radius: 18px;
+  padding: 28px 24px 20px;
+  box-shadow: none;
+}
+
+.info-pop-up-content h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  white-space: normal;
+  text-align: left;
+}
+
+.info-pop-up-content ol {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+  font-family: 'Lucida Console', 'Times New Roman', serif;
+}
+
+.info-pop-up-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--section_text);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
 /*.settings:active {
   animation-name: ronddraaien_icoontje;
   animation-duration: 5s;
@@ -207,10 +266,15 @@ body {
   justify-content: space-evenly;
 }
 
-.show {
+.dropdown_menu.show {
   visibility: visible;
   animation-name: menu_ontstaat;
   animation-duration: 0.5s;
+}
+
+.info-pop-up.show {
+  display: flex;
+  animation: none;
 }
 
 .chart-container {

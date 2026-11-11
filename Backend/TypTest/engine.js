@@ -158,6 +158,11 @@ async function generateWords(lang, difficulty, n, replace = true) {
         newWordParagraph.id = "word" + wordIndex;
         wordGuideDiv.append(newWordParagraph);
     }
+
+    Array.from(wordGuideDiv.children).forEach((wordElement, index) => {
+        wordElement.style.color = index === 0 ? "red" : "";
+    });
+
     if(replace){
         inputBox.value = "";
     }
