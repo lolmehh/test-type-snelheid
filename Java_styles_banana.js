@@ -78,6 +78,33 @@ difficultyButtons.forEach((button) => {
   })
 })
 
+const infoButton = document.getElementById("info-button")
+const infoPopup = document.getElementById("info-pop-up")
+const closeInfoPopup = document.getElementById("close-info-pop-up")
+
+if (infoButton && infoPopup) {
+  infoButton.addEventListener("click", () => {
+    infoPopup.classList.remove("hidden")
+    infoPopup.classList.add("show")
+  })
+}
+
+if (closeInfoPopup && infoPopup) {
+  closeInfoPopup.addEventListener("click", () => {
+    infoPopup.classList.remove("show")
+    infoPopup.classList.add("hidden")
+  })
+}
+
+if (infoPopup) {
+  infoPopup.addEventListener("click", (event) => {
+    if (event.target === infoPopup) {
+      infoPopup.classList.remove("show")
+      infoPopup.classList.add("hidden")
+    }
+  })
+}
+
 // dropdown
 const knopje_menu = document.getElementById("knopje_menu")
 const menuutje = document.getElementById("menuutje")

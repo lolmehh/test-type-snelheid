@@ -12,28 +12,28 @@
 
     <script src="Java_styles_banana.js" defer></script>
     <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
-    <script type="module" src="Backend/TypTest/engine.js"></script>
+    <script type="module" src="./Backend/TypTest/engine.js"></script>
 </head>
 
 <body>
-    <header class="typing-header">
+    <header class="typing-header" style="margin-top: 20px;">
         <nav>
             <div class="navigation typing_nav">
                 <button class="settings icon" id="knopje_menu"><i class="fa-solid fa-gear"></i></button>
                 <div class="tooltip" id="tt_settings">Settings</div>
                 <ul class="dropdown_menu" id="menuutje">
                     <li>
-                        <p>Language</p>
+                        <p>Typing language</p>
                         <button id="to_English" data-language="en">English</button>
                         <button id="to_Dutch" data-language="nl">Nederlands</button>
                     </li>
                     <li>
                         <p>Difficulty</p>
-                        <button id="to_makkelijk" data-difficulty="0">Makkelijk</button>
-                        <button id="to_gemiddeld" data-difficulty="1">Gemiddeld</button>
-                        <button id="to_moeizaam" data-difficulty="2">Moeizaam</button>
-                        <button id="to_ingewikkeld" data-difficulty="3">Ingewikkeld</button>
-                        <button id="to_onmogelijk" data-difficulty="4">Onmogelijk</button>
+                        <button id="to_makkelijk" data-difficulty="0">Easy</button>
+                        <button id="to_gemiddeld" data-difficulty="1">Medium</button>
+                        <button id="to_moeizaam" data-difficulty="2">Hard</button>
+                        <button id="to_ingewikkeld" data-difficulty="3">Very Hard</button>
+                        <button id="to_onmogelijk" data-difficulty="4">Impossible</button>
                     </li>
                     <li>
                         <p>Appearance</p> 
@@ -44,7 +44,10 @@
                 
                 <a href="statistics.html" class="statistics icon"><i class="fa-solid fa-chart-column"></i></a>
                 <div class="tooltip" id="tt_statistics">Statistics</div>
-                
+                <button type="button" class="information icon" id="info-button" aria-label="How this website works">
+                    <i class="fa-solid fa-circle-info"></i>
+                </button>
+
             </div>
 
             
@@ -52,8 +55,23 @@
         
     </header>
 
+    <div class="info-pop-up hidden" id="info-pop-up" role="dialog" aria-modal="true" aria-labelledby="info-pop-up-title">
+        <div class="info-pop-up-content">
+            <button type="button" class="info-pop-up-close" id="close-info-pop-up" aria-label="Close instructions">×</button>
+            <h2 id="info-pop-up-title">How the type tester works</h2>
+            <ol>
+                <li>Choose your language and difficulty from the settings menu or from the dropdown menu.</li>
+                <li>Press the reset button to start a new run.</li>
+                <li>Type the red word exactly as shown and press the space bar when it is complete.</li>
+                <li>Each correct word increases your score and your typing speed is tracked live.</li>
+                <li>Check your progress on the statistics page to see your past runs.</li>
+                <b style="color: #ff0000;">If a word is not written correctly, it needs to be corrected before you can proceed.</b>
+            </ol>
+        </div>
+    </div>
+
     <main class="typing-main">
-        <div class="title">
+        <div class="title" style="margin-top: 50px;">
             <h1>Type tester</h1>
         </div>
         <hr class="typing-heading-divider">
@@ -62,24 +80,24 @@
       <button type="button", id="reset-btn" class="typing_label">Reset</button>
       <label class="typing_label">Language:</label>
       <select id="language" class="typing_dropdown">
-        <option>nl</option>
-        <option>en</option>
+        <option value="nl">Nederlands</option>
+        <option value="en">English</option>
       </select>
       <label class="typing_label">Difficulty:</label>
       <select id="difficulty" class="typing_dropdown">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
+        <option value="0">Easy</option>
+        <option value="1">Medium</option>
+        <option value="2">Hard</option>
+        <option value="3">Very Hard</option>
+        <option value="4">Impossible</option>
       </select>
     </div>
         <div id="Word-guide-container" class="typing_guide_word_container">
-            <p class="typing_label">Druk op "Reset" om te beginnen</p>
+            <p class="typing_label">Press "Reset" to begin</p>
         </div>
-        <input type="text" id="main-input">
+        <input type="text" id="main-input" placeholder="Click here and start typing the red word and press space when done...">
         <section class="run-graph-section" aria-labelledby="run-graph-title">
-          <h2 id="run-graph-title">Speed during this run</h2>
+          <h2 id="run-graph-title">Speed during this run:</h2>
           <div class="run-graph">
             <canvas id="run-speed-chart" role="img" aria-label="Graph of typing speed over time during this run"></canvas>
           </div>

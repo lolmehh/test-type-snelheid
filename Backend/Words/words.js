@@ -11,6 +11,8 @@ export async function getWords(lang = "en", difficulty = 0, amount = 1){
     */
     let word_dataset;
     let words = [];
+    const resolvedDutchWords = await dutch_words;
+    const resolvedEnglishWords = await english_words;
     
     if(lang === "en"){
         word_dataset = english_words;

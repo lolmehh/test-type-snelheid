@@ -1,4 +1,4 @@
-import { getWords } from "/Backend/Words/words.js";
+import { getWords } from "../Words/words.js";
 
 let currentWords = [];//words to type
 let selectedDifficulty = 0;
@@ -158,6 +158,11 @@ async function generateWords(lang, difficulty, n, replace = true) {
         newWordParagraph.id = "word" + wordIndex;
         wordGuideDiv.append(newWordParagraph);
     }
+
+    Array.from(wordGuideDiv.children).forEach((wordElement, index) => {
+        wordElement.style.color = index === 0 ? "red" : "";
+    });
+
     if(replace){
         inputBox.value = "";
     }
@@ -193,7 +198,7 @@ resetBtn.addEventListener("click", () => onReset())
 languageSelect.addEventListener("change", () => onReset());
 difficultySelect.addEventListener("change", () => onReset());
 
-
+onReset();
 
 function checkUserInput_New(){
     //new user input check func
