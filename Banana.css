@@ -576,6 +576,12 @@ body {
   background: #fff;
 }
 
+.typing-box select,
+.typing-box select option {
+  color: var(--regular_text);
+  background-color: #fff;
+}
+
 .typing-box button {
   cursor: pointer;
   background-color: var(--selected_option);
