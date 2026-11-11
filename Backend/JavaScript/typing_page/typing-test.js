@@ -1,4 +1,5 @@
-import { getWords } from "../Words/words.js";
+import { getWords } from "./word-list.js";
+import { drawRunChart } from "./run-speed-chart.js";
 
 let currentWords = [];//words to type
 let selectedDifficulty = 0;
@@ -56,7 +57,7 @@ function drawRunChart() {
     const padding = { top: 16, right: 14, bottom: 52, left: 56 };
     const graphWidth = width - padding.left - padding.right;
     const graphHeight = height - padding.top - padding.bottom;
-    const maxSeconds = selectedDuration;
+    const maxSeconds = TIMER_LENGTH;
 
     context.font = "12px system-ui, sans-serif";
     context.textAlign = "right";
@@ -192,10 +193,6 @@ async function onReset(){
     if (wordLabel) wordLabel.textContent = "Words: 0";
     timerLabel.innerHTML = "Time: 0s / " + selectedDuration + "s"
     if (runChartMessage) runChartMessage.textContent = "Your speed during this run will appear here.";
-    if (timeProgress) {
-        timeProgress.value = 100;
-        timeProgress.setAttribute("aria-valuenow", "100");
-    }
     drawRunChart();
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
@@ -274,7 +271,7 @@ function updateTimer(){
     if (sampleSecond > lastGraphSampleSecond) {
         WPMHistory.push([elapsedSeconds, calc_wpm_real(measuredElapsed, correctWords)]);
         lastGraphSampleSecond = sampleSecond;
-        drawRunChart();
+        drawCurrentRunChart();
     }
     if (elapsed >= selectedDuration * 1000){
         clearInterval(scheduledTimerUpdate);
@@ -282,7 +279,7 @@ function updateTimer(){
         inputBox.disabled = true;
         const finalWpm = calc_wpm_real(measuredElapsed, correctWords);
         wpmLabel.textContent = "Speed: " + finalWpm + " wpm";
-        WPMHistory.push([selectedDuration, finalWpm]);
+        WPMHistory.push([TIMER_LENGTH, finalWpm]);
         drawRunChart();
         recordRun();
     }
@@ -333,10 +330,10 @@ function onCharTyped () {
         
         wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
         updateRunStats();
-        WPMHistory.push([Math.min(elapsed / 1000, selectedDuration), calc_wpm_real(elapsed, correctWords)]);
+        WPMHistory.push([Math.min(elapsed / 1000, TIMER_LENGTH), calc_wpm_real(elapsed, correctWords)]);
         drawRunChart();
     }
 }
 
 inputBox.addEventListener("input", () => onCharTyped());
-window.addEventListener("resize", drawRunChart);
+window.addEventListener("resize", drawCurrentRunChart);
