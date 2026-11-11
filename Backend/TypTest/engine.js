@@ -193,7 +193,7 @@ resetBtn.addEventListener("click", () => onReset())
 languageSelect.addEventListener("change", () => onReset());
 difficultySelect.addEventListener("change", () => onReset());
 
-
+onReset();
 
 function checkUserInput_New(){
     //new user input check func
