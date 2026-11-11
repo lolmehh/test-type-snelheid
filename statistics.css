@@ -1,13 +1,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
-html {
-    min-height: 100%;
-}
-
-* {
-    box-sizing: border-box;
-}
+html {min-height: 100%;}
+* {box-sizing: border-box;}
 
 body {
     margin: 0;
@@ -82,10 +77,6 @@ h1 {
 
 h2 {
     margin: 0;
-
-    font-family: 'Lucida Console',
-        'Times New Roman', serif;
-
     font-size: clamp(1rem, 3.5vw, 2.5rem);
     font-weight: 400;
     text-align: center;
@@ -322,7 +313,6 @@ main {
 
 .icon {
   font-size: 70px;
-  color: #d3d3d3;
   border: none;
   transition-duration: 0.2s;
   position: relative;

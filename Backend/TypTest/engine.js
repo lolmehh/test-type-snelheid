@@ -16,7 +16,7 @@ let runFinished = false;
 const WORD_COUNT_ALG = "real_cumulative";//5char = each 5 chars of word counted as word(what wpm counters normally use)
 //  <real = words are counted as words; 5char_cumulative = wpm calculated based on the total time elapsed since the start of the test and each 5 chars counted as a word
 
-const TIMER_LENGTH = 10; //seconds
+const TIMER_LENGTH = 20; //seconds
 const COUNT_SPACES = true;//whether to require space at the end of word to continue to next
 const RUN_HISTORY_KEY = "typingTestRuns";
 
@@ -31,7 +31,8 @@ const timerLabel = document.getElementById("timer")
 const wordLabel = document.getElementById("word-count");
 const runChart = document.getElementById("run-speed-chart");
 const runChartMessage = document.getElementById("run-chart-message");
-
+const runGraphSection = document.getElementById("run-graph-section");
+const timerOnPage = document.getElementById("timer_on_page");
 
 let startTime =null;
 
@@ -265,7 +266,10 @@ function updateTimer(){
         WPMHistory.push([TIMER_LENGTH, finalWpm]);
         drawRunChart();
         recordRun();
+        runGraphSection.classList.add("klaar");
     }
+    else {runGraphSection.classList.remove("klaar");}
+    timerOnPage.innerHTML(durationMs);
 }
 
 function onCharTyped () {
