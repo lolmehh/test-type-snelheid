@@ -483,6 +483,7 @@ body {
   flex-wrap: wrap;
   gap: 0.4em;
   font-size: clamp(0.8rem, 1.4vw, 1.4rem);
+  user-select: none;
 }
 
 .typing-box #Word-guide-container .typing_label {
