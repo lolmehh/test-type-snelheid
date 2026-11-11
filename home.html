@@ -10,13 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
-    <script src="Java_styles_banana.js" defer></script>
+    <script src="./Source/Javascript/Global/site-settings.js" defer></script>
     <script src="https://kit.fontawesome.com/4d89eb1ff3.js" crossorigin="anonymous"></script>
-    <script type="module" src="./Backend/TypTest/engine.js"></script>
+    <script type="module" src="./Source/Javascript/typing_page/typing-test.js"></script>
 </head>
 
 <body>
-    <header class="typing-header" style="margin-top: 20px;">
+    <header class="typing-header">
         <nav>
             <div class="navigation typing_nav">
 
@@ -35,6 +35,13 @@
                         <button id="to_onmogelijk" data-difficulty="4">Impossible</button>
                     </li>
                     <li>
+                        <p>Time</p>
+                        <button id="to_10sec" data-duration="10">10 sec</button>
+                        <button id="to_20sec" data-duration="20">20 sec</button>
+                        <button id="to_30sec" data-duration="30">30 sec</button>
+                        <button id="to_60sec" data-duration="60">60 sec</button>
+                    </li>
+                    <li>
                         <p>Appearance</p> 
                         <button id="get_light">Light mode</button>
                         <button id="get_dark">Dark mode</button>
@@ -44,15 +51,33 @@
                 <div class="tooltip" id="tt_settings">Settings</div>              
                 <a href="statistics.html" class="statistics icon"><i class="fa-solid fa-chart-column"></i></a>
                 <div class="tooltip" id="tt_statistics">Statistics</div>
-                
+                <button type="button" class="information icon" id="info-button" aria-label="How this website works">
+                    <i class="fa-solid fa-circle-info"></i>
+                </button>
+
             </div>
            
         </nav>
         
     </header>
 
+    <div class="info-pop-up hidden" id="info-pop-up" role="dialog" aria-modal="true" aria-labelledby="info-pop-up-title">
+        <div class="info-pop-up-content">
+            <button type="button" class="info-pop-up-close" id="close-info-pop-up" aria-label="Close instructions">×</button>
+            <h2 id="info-pop-up-title">How the type tester works</h2>
+            <ol>
+                <li>Choose your language and difficulty from the settings menu or from the dropdown menu.</li>
+                <li>Press the reset button to start a new run.</li>
+                <li>Type the red word exactly as shown and press the space bar when it is complete.</li>
+                <li>Each correct word increases your score and your typing speed is tracked live.</li>
+                <li>Check your progress on the statistics page to see your past runs.</li>
+                <b style="color: #ff0000;">If a word is not written correctly, it needs to be corrected before you can proceed.</b>
+            </ol>
+        </div>
+    </div>
+
     <main class="typing-main">
-        <div class="title" style="margin-top: 50px;">
+        <div class="title">
             <h1>Type tester</h1>
         </div>
         <hr class="typing-heading-divider">
@@ -72,14 +97,52 @@
         <option value="3">3</option>
         <option value="4">4</option>
       </select></div>
+    <div class="typing-box">
+        <div class="controls-row">
+        <button type="button" id="reset-btn" class="reset-button">
+            <span class="reset-button-main">Reset</span>
+            <span class="reset-button-sub">The timer starts counting when the first character is typed</span>
+        </button>
+        </div>
+        <div class="settings-row">
+        <div class="field-group">
+            <label class="typing_label" for="language">Language:</label>
+            <select id="language" class="typing_dropdown">
+            <option value="nl">Dutch</option>
+            <option value="en">English</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label class="typing_label" for="difficulty">Difficulty:</label>
+            <select id="difficulty" class="typing_dropdown">
+            <option value="0">Easy</option>
+            <option value="1">Medium</option>
+            <option value="2">Hard</option>
+            <option value="3">Very Hard</option>
+            <option value="4">Impossible</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label class="typing_label" for="test-duration">Time:</label>
+            <select id="test-duration" class="typing_dropdown">
+            <option value="10">10 sec</option>
+            <option value="20" selected>20 sec</option>
+            <option value="30">30 sec</option>
+            <option value="60">60 sec</option>
+            </select>
+        </div>
     </div>
         <div id="Word-guide-container" class="typing_guide_word_container">
-            <p class="typing_label">Press "Reset" to begin</p>
+            <p class="typing_label">Press Start to begin</p>
         </div>
-        <input type="text" id="main-input" placeholder="Click here and start typing...">
+        <div class="time-progress-wrap">
+            <label class="time-progress-label" for="time-progress">Time remaining</label>
+            <progress id="time-progress" value="100" max="100" aria-label="Time remaining">100%</progress>
+        </div>
+        <input type="text" id="main-input" placeholder="Click here and start typing the red word and press space when done...">
         <div id="timer_on_page"><p>0:00:00</p></div>
         <section id="run-graph-section" aria-labelledby="run-graph-title">
-          <h2 id="run-graph-title">Speed during this run</h2>
+          <h2 id="run-graph-title">Speed during this run:</h2>
           <div class="run-graph">
             <a href="statistics.html"><canvas id="run-speed-chart" role="img" aria-label="Graph of typing speed over time during this run"></canvas></a>
           </div>
