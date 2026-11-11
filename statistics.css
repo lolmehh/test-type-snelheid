@@ -21,6 +21,7 @@ body {
 
 header {
     width: 100%;
+    min-height: 110px;
     padding: 40px 20px 0;
 }
 
@@ -345,6 +346,10 @@ main {
 }
 
 @media (max-width: 600px) {
+    header {
+        min-height: 46px;
+    }
+
     .run-history-table-header {
         flex-wrap: nowrap;
         gap: 6px;
