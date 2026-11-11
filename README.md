@@ -1,7 +1,15 @@
 # Test-typ-snelheid
 **A website to test and improve your typing skills**
-
 Made by Team 005: TestTypSnelheidTeam team as a project for Project Informatica
+
+Testypesnelheidtest is gemaakt zodat scholieren kunnen meten hoeveel woorden ze per minuut kunnen typen. Daarnaast laat de website zien aan de scholieren hoe goed ze het hebben gedaan in vergelijking met andere scholieren. Dit kan hun bijvoorbeeld motiveren om beter te leren typen. 
+
+De website doelt op alle scholieren tussen 12 en 20. Er zijn dus ook verschillende niveaus testen gemaakt, zodat iedereen tussen de leeftijden deze test kunnen uitvoeren.
+
+## Beoordelingscriteria
+- Website
+- Programmeren
+- User experience
 
 ## Features
 
@@ -11,6 +19,10 @@ Made by Team 005: TestTypSnelheidTeam team as a project for Project Informatica
  - **Real-time feedback**: You can immediately see your speed, mistakes, amount of typed words and more right after you have finished a test. There is also a real-time graph that updates with each word you haave typed to show cnahges in your speed.
  - **Statistics**: The statistics page is very useful to track your progress with interactive charts and tables. It also shows real-world statistics so you can compare your results to those of an average person.
  - **Progress saving**: The website saves your progress, so even if you close it, your progress is retained(saved locally in the browser). You can always delete it in the settings.
+
+## Hoe open je het product
+- Open Product/home.html uit het ingeleverde bestandje
+- Open het bijgevoegde bestand over het gebruikersonderzoek
 
 ## How to use
 1. **Select your language**: Either english or dutch. This determines the language of the words you are going to type.

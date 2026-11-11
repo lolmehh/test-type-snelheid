@@ -176,7 +176,10 @@ body {
 }
 
 
-.statistics:hover ~ #tt_statistics, .settings:hover ~ #tt_settings, .back_button:hover ~ #tt_home {
+.statistics:hover ~ #tt_statistics,
+.settings:hover ~ #tt_settings,
+.information:hover ~ #tt_information,
+.back_button:hover ~ #tt_home {
   animation-name: tooltip_verschijnt;
   animation-duration: 0.2s;
   visibility: visible;
@@ -250,7 +253,7 @@ body {
 
 .typing_label, .typing_dropdown, .typing_guide_word_container {
   font-family: 'Lucida Console', monospace;
-  font-size: clamp(0.7rem, 2.0vw, 4.5rem);
+  font-size: clamp(0.7rem, 1.75vw, 1.5rem);
   font-weight: 400;
   font-style: normal;
 }
@@ -400,6 +403,22 @@ body {
 .typing_nav .tooltip {
   position: absolute;
   pointer-events: none;
+  top: 100px;
+  width: 100px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.typing_nav #tt_settings {
+  left: 10px;
+}
+
+.typing_nav #tt_statistics {
+  left: 114px;
+}
+
+.typing_nav #tt_information {
+  left: 218px;
 }
 
 .typing_nav .settings,
@@ -760,6 +779,21 @@ body {
   .typing_nav .information {
     width: 56px;
     height: 56px;
+  }
+
+  .typing_nav #tt_settings {
+    top: 56px;
+    left: -12px;
+  }
+
+  .typing_nav #tt_statistics {
+    top: 56px;
+    left: 48px;
+  }
+
+  .typing_nav #tt_information {
+    top: 56px;
+    left: 108px;
   }
 
   .typing_nav .icon {
