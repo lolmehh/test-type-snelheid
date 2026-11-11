@@ -36,6 +36,13 @@
                         <button id="to_onmogelijk" data-difficulty="4">Impossible</button>
                     </li>
                     <li>
+                        <p>Time</p>
+                        <button id="to_10sec" data-duration="10">10 sec</button>
+                        <button id="to_20sec" data-duration="20">20 sec</button>
+                        <button id="to_30sec" data-duration="30">30 sec</button>
+                        <button id="to_60sec" data-duration="60">60 sec</button>
+                    </li>
+                    <li>
                         <p>Appearance</p> 
                         <button id="get_light">Light mode</button>
                         <button id="get_dark">Dark mode</button>
@@ -75,25 +82,47 @@
             <h1>Type tester</h1>
         </div>
         <hr class="typing-heading-divider">
-        <div class="typing-box">
-    <div class="row">
-      <button type="button", id="reset-btn" class="typing_label">Reset</button>
-      <label class="typing_label">Language:</label>
-      <select id="language" class="typing_dropdown">
-        <option value="nl">Nederlands</option>
-        <option value="en">English</option>
-      </select>
-      <label class="typing_label">Difficulty:</label>
-      <select id="difficulty" class="typing_dropdown">
-        <option value="0">Easy</option>
-        <option value="1">Medium</option>
-        <option value="2">Hard</option>
-        <option value="3">Very Hard</option>
-        <option value="4">Impossible</option>
-      </select>
+    <div class="typing-box">
+        <div class="controls-row">
+        <button type="button" id="reset-btn" class="reset-button">
+            <span class="reset-button-main">Reset</span>
+            <span class="reset-button-sub">The timer starts counting when the first character is typed</span>
+        </button>
+        </div>
+        <div class="settings-row">
+        <div class="field-group">
+            <label class="typing_label" for="language">Language:</label>
+            <select id="language" class="typing_dropdown">
+            <option value="nl">Dutch</option>
+            <option value="en">English</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label class="typing_label" for="difficulty">Difficulty:</label>
+            <select id="difficulty" class="typing_dropdown">
+            <option value="0">Easy</option>
+            <option value="1">Medium</option>
+            <option value="2">Hard</option>
+            <option value="3">Very Hard</option>
+            <option value="4">Impossible</option>
+            </select>
+        </div>
+        <div class="field-group">
+            <label class="typing_label" for="test-duration">Time:</label>
+            <select id="test-duration" class="typing_dropdown">
+            <option value="10">10 sec</option>
+            <option value="20" selected>20 sec</option>
+            <option value="30">30 sec</option>
+            <option value="60">60 sec</option>
+            </select>
+        </div>
     </div>
         <div id="Word-guide-container" class="typing_guide_word_container">
-            <p class="typing_label">Press "Reset" to begin</p>
+            <p class="typing_label">Press Start to begin</p>
+        </div>
+        <div class="time-progress-wrap">
+            <label class="time-progress-label" for="time-progress">Time remaining</label>
+            <progress id="time-progress" value="100" max="100" aria-label="Time remaining">100%</progress>
         </div>
         <input type="text" id="main-input" placeholder="Click here and start typing the red word and press space when done...">
         <section class="run-graph-section" aria-labelledby="run-graph-title">

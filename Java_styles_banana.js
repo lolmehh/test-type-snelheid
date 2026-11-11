@@ -5,6 +5,7 @@ const to_English = document.getElementById("to_English")
 const to_Dutch = document.getElementById("to_Dutch")
 const languageSelect = document.getElementById("language")
 const difficultySelect = document.getElementById("difficulty")
+const durationSelect = document.getElementById("test-duration")
 
 const difficultyButtons = [
   document.getElementById("to_makkelijk"),
@@ -12,6 +13,13 @@ const difficultyButtons = [
   document.getElementById("to_moeizaam"),
   document.getElementById("to_ingewikkeld"),
   document.getElementById("to_onmogelijk")
+]
+
+const durationButtons = [
+  document.getElementById("to_10sec"),
+  document.getElementById("to_20sec"),
+  document.getElementById("to_30sec"),
+  document.getElementById("to_60sec")
 ]
 
 function setLanguage(lang) {
@@ -41,6 +49,22 @@ function setDifficulty(level) {
   })
 }
 
+function setDuration(seconds) {
+  const allowedDurations = [10, 20, 30, 60]
+  const safeDuration = allowedDurations.includes(Number(seconds)) ? Number(seconds) : 20
+
+  if (durationSelect && durationSelect.value !== String(safeDuration)) {
+    durationSelect.value = String(safeDuration)
+    durationSelect.dispatchEvent(new Event("change", { bubbles: true }))
+  }
+  localStorage.setItem("testDuration", String(safeDuration))
+
+  durationButtons.forEach((button) => {
+    if (!button) return
+    button.disabled = Number(button.dataset.duration) === safeDuration
+  })
+}
+
 //darkmode
 const enable_darkmode = () => {  
     document.body.classList.add("darkmode")
@@ -64,6 +88,9 @@ const check_storage = () => {
 
     const savedDifficulty = localStorage.getItem("difficulty") || "0"
     setDifficulty(savedDifficulty)
+
+    const savedDuration = localStorage.getItem("testDuration") || "20"
+    setDuration(savedDuration)
 } //zodat ie onthoudt hoe ie stond
 
 if (get_light) get_light.addEventListener("click", () => {disable_darkmode()})
@@ -75,6 +102,13 @@ difficultyButtons.forEach((button) => {
   if (!button) return
   button.addEventListener("click", () => {
     setDifficulty(button.dataset.difficulty)
+  })
+})
+
+durationButtons.forEach((button) => {
+  if (!button) return
+  button.addEventListener("click", () => {
+    setDuration(button.dataset.duration)
   })
 })
 

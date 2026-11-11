@@ -3,6 +3,7 @@ import { getWords } from "../Words/words.js";
 let currentWords = [];//words to type
 let selectedDifficulty = 0;
 let selectedLanguage = "nl";
+let selectedDuration = 20;
 let correctWords = 0;
 let isAppendingWords = false;
 let correctChars = 0;
@@ -16,7 +17,6 @@ let runFinished = false;
 const WORD_COUNT_ALG = "real_cumulative";//5char = each 5 chars of word counted as word(what wpm counters normally use)
 //  <real = words are counted as words; 5char_cumulative = wpm calculated based on the total time elapsed since the start of the test and each 5 chars counted as a word
 
-const TIMER_LENGTH = 10; //seconds
 const COUNT_SPACES = true;//whether to require space at the end of word to continue to next
 const RUN_HISTORY_KEY = "typingTestRuns";
 
@@ -24,6 +24,7 @@ const inputBox = document.getElementById("main-input");
 const wordGuideDiv = document.getElementById("Word-guide-container");
 const resetBtn = document.getElementById("reset-btn");
 const languageSelect = document.getElementById("language");
+const durationSelect = document.getElementById("test-duration");
 const difficultySelect = document.getElementById("difficulty")
 const wpmLabel = document.getElementById("wpm-count")
 const charLabel = document.getElementById("char-count")
@@ -31,6 +32,7 @@ const timerLabel = document.getElementById("timer")
 const wordLabel = document.getElementById("word-count");
 const runChart = document.getElementById("run-speed-chart");
 const runChartMessage = document.getElementById("run-chart-message");
+const timeProgress = document.getElementById("time-progress");
 
 
 let startTime =null;
@@ -54,7 +56,7 @@ function drawRunChart() {
     const padding = { top: 16, right: 14, bottom: 52, left: 56 };
     const graphWidth = width - padding.left - padding.right;
     const graphHeight = height - padding.top - padding.bottom;
-    const maxSeconds = TIMER_LENGTH;
+    const maxSeconds = selectedDuration;
 
     context.font = "12px system-ui, sans-serif";
     context.textAlign = "right";
@@ -116,7 +118,7 @@ function updateRunStats() {
 function recordRun() {
     if (runFinished || !startTime) return;
     runFinished = true;
-    const durationMs = Math.min(Date.now() - startTime, TIMER_LENGTH * 1000);
+    const durationMs = Math.min(Date.now() - startTime, selectedDuration * 1000);
     const run = {
         date: new Date().toISOString(),
         wpm: calc_wpm_real(durationMs, correctWords),
@@ -124,7 +126,8 @@ function recordRun() {
         words: correctWords,
         durationSeconds: Math.round(durationMs / 1000),
         language: selectedLanguage,
-        difficulty: selectedDifficulty
+        difficulty: selectedDifficulty,
+        testDuration: selectedDuration
     };
 
     try {
@@ -171,6 +174,7 @@ async function generateWords(lang, difficulty, n, replace = true) {
 async function onReset(){
     selectedDifficulty = Number(difficultySelect.value);
     selectedLanguage = languageSelect.value;
+    selectedDuration = Number(durationSelect.value);
     correctWords = 0;
     correctChars = 0;
     currentWordIndex = 0;
@@ -186,8 +190,12 @@ async function onReset(){
     wpmLabel.innerHTML = "Speed: -- "
     charLabel.innerHTML = "Chars: 0"
     if (wordLabel) wordLabel.textContent = "Words: 0";
-    timerLabel.innerHTML = "Time: 0s / " + TIMER_LENGTH + "s"
+    timerLabel.innerHTML = "Time: 0s / " + selectedDuration + "s"
     if (runChartMessage) runChartMessage.textContent = "Your speed during this run will appear here.";
+    if (timeProgress) {
+        timeProgress.value = 100;
+        timeProgress.setAttribute("aria-valuenow", "100");
+    }
     drawRunChart();
 
     generateWords(selectedLanguage, selectedDifficulty, 5, true);
@@ -196,6 +204,7 @@ async function onReset(){
 }
 resetBtn.addEventListener("click", () => onReset())
 languageSelect.addEventListener("change", () => onReset());
+durationSelect.addEventListener("change", () => onReset());
 difficultySelect.addEventListener("change", () => onReset());
 
 onReset();
@@ -252,22 +261,28 @@ function calc_wpm_fivechar(elapsed_ms, correct_chars){
 
 function updateTimer(){
     let elapsed = Date.now() - startTime;
-    const measuredElapsed = Math.min(elapsed, TIMER_LENGTH * 1000);
+    const measuredElapsed = Math.min(elapsed, selectedDuration * 1000);
     const elapsedSeconds = measuredElapsed / 1000;
-    timerLabel.innerHTML = "Time: " + Math.floor(elapsedSeconds) + "s / " + TIMER_LENGTH + "s";
+    timerLabel.innerHTML = "Time: " + Math.floor(elapsedSeconds) + "s / " + selectedDuration + "s";
+    const remainingSeconds = Math.max(0, selectedDuration - Math.floor(elapsedSeconds));
+    const remainingPercent = Math.max(0, Math.min(100, (remainingSeconds / selectedDuration) * 100));
+    if (timeProgress) {
+        timeProgress.value = remainingPercent;
+        timeProgress.setAttribute("aria-valuenow", String(remainingPercent));
+    }
     const sampleSecond = Math.floor(elapsedSeconds);
     if (sampleSecond > lastGraphSampleSecond) {
         WPMHistory.push([elapsedSeconds, calc_wpm_real(measuredElapsed, correctWords)]);
         lastGraphSampleSecond = sampleSecond;
         drawRunChart();
     }
-    if (elapsed >= TIMER_LENGTH * 1000){
+    if (elapsed >= selectedDuration * 1000){
         clearInterval(scheduledTimerUpdate);
         scheduledTimerUpdate = null;
         inputBox.disabled = true;
         const finalWpm = calc_wpm_real(measuredElapsed, correctWords);
         wpmLabel.textContent = "Speed: " + finalWpm + " wpm";
-        WPMHistory.push([TIMER_LENGTH, finalWpm]);
+        WPMHistory.push([selectedDuration, finalWpm]);
         drawRunChart();
         recordRun();
     }
@@ -275,13 +290,13 @@ function updateTimer(){
 
 function onCharTyped () {
 
-    if (!startTime){
+    if (!startTime && inputBox.value.length > 0){
         //then the timer starts... NOW!
         startTime = Date.now();
         scheduledTimerUpdate = setInterval(updateTimer, 250);
     }
     const elapsed = Date.now() - startTime;
-    if (elapsed >= TIMER_LENGTH * 1000) {
+    if (elapsed >= selectedDuration * 1000) {
         updateTimer();
         return;
     }
@@ -318,7 +333,7 @@ function onCharTyped () {
         
         wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
         updateRunStats();
-        WPMHistory.push([Math.min(elapsed / 1000, TIMER_LENGTH), calc_wpm_real(elapsed, correctWords)]);
+        WPMHistory.push([Math.min(elapsed / 1000, selectedDuration), calc_wpm_real(elapsed, correctWords)]);
         drawRunChart();
     }
 }
