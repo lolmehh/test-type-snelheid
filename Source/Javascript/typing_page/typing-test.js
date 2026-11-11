@@ -95,7 +95,10 @@ async function generateWords(lang, difficulty, n, replace = true) {
     }
 
     Array.from(wordGuideDiv.children).forEach((wordElement, index) => {
-        wordElement.style.color = index === 0 ? "red" : "";
+        wordElement.style.color = index === 0 ? "white" : "";
+    });
+    Array.from(wordGuideDiv.children).forEach((wordElement, index) => {
+        wordElement.style.fontWeight = index === 0 ? "bold" : "";
     });
 
     if(replace){
@@ -159,8 +162,7 @@ function checkUserInput_New(){
         
         currentWordIndex++;//move to the next word
         inputBox.value = "";//clear the input box for the next word
-        generateWords(selectedLanguage, selectedDifficulty, 1, false)        
-        GUI_guideWords[1].style.color = "Red";//mark the next word as the current one
+        generateWords(selectedLanguage, selectedDifficulty, 1, false)
         GUI_guideWords[0].remove();
         timeHistory.push([Date.now(), correctWords, correctChars, typedChars]);
         updateRunStats();

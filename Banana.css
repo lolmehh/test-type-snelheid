@@ -20,6 +20,7 @@ html {height: 100%;}
   --regular_text: #0A2463;
   --chart_bg: rgba(15, 20, 65, 0.25);
   --divider: rgba(255, 255, 255, 0.35);
+  --reset_button: #5681F1;
 }
 
 .darkmode {
@@ -32,6 +33,7 @@ html {height: 100%;}
   --menu_gradient_0: #020d2a;
   --menu_gradient_60: #06163f;
   --menu_gradient_100: #0b1c44;
+  --reset_button: #222fa9;
 }
 /*
 main {
@@ -423,6 +425,7 @@ body {
 }
 
 #Word-guide-container p {color:rgba(239, 242, 252, 0.75)}
+.darkmode #Word-guide-container {border:2px solid var(--icon_hover)}
 
 /*#run-graph-section {visibility: hidden; }*/
 .klaar {visibility: visible;}
@@ -584,7 +587,7 @@ body {
 
 .typing-box button {
   cursor: pointer;
-  background-color: var(--selected_option);
+  background-color: var(--reset_button);
 }
 
 .typing-box input[type="text"] {
