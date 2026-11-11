@@ -296,7 +296,7 @@ body {
 
 .typing-box .row {
   display: flex;
-  align-items: center;
+  justify-items: center;
   gap: 140px;
 }
 
@@ -578,7 +578,6 @@ body {
 .typing-box button {
   font: inherit;
   padding: 8px 10px;
-  border: 1px solid #4d797a;
   border-radius: 4px;
   background: #fff;
 }
