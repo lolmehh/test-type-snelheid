@@ -195,7 +195,7 @@ body {
   height: 485px;
   width: 275px;
   position: absolute;
-  top: 0px;
+  top: 30px;
   left: 0px;
   transform: translateX(-50px);
   overflow: hidden;

@@ -6,6 +6,15 @@ Testypesnelheidtest is gemaakt zodat scholieren kunnen meten hoeveel woorden ze 
 
 De website doelt op alle scholieren tussen 12 en 20. Er zijn dus ook verschillende niveaus testen gemaakt, zodat iedereen tussen de leeftijden deze test kunnen uitvoeren.
 
+[image](./Images README/Home.png) - geeft de homepagina weer. Hier komen de scholieren op terecht als ze de pagina openen. Op de pagina zien ze in het midden gelijk de tester waarmee ze hun eigen typsnelheid kunnen testen. De tester bestaat uit verschillende onderdelen. De reset knop, Dropdown menuus waar dingen kunnen worden ingesteld, de tekst die geschreven moet worden, de tijd die over is, het invulvak, de snelheid van de huidige typesessie en nog meer gegevens van huidige typesessie. In de instructies op de pagina staat meer over hoe alles werkt: [image](./Images README/instructies.png)
+Linksbovenin staan drie icoontjes waarmee ze instellingen kunnen openen, naar de statistiek pagina kunnen gaan en als laatste een uitleg kunnen krijgen over hoe de type tester werkt.
+
+op de statistieken pagina zijn twee verschillende soorten statistieken te zien. De eerste zijn de persoonsgebonden statestieken. Dit zijn de statestieken op basis van de resultaten van de testen die iemand heeft gedaan.
+[image](./Images README/EigenStats.png)
+Er zijn een heleboel gegevens uit te lezen van de gemaakte tests. WPM, geschreven woorden, aantal geschreven karakter en de moeilijkheidsgraad.
+De tweede soort statestiek is zijn de gemiddelden van mensen tussen de 12 en 20 jaar oud. Op deze grafiek is af te lezen hoeveel procent van de mensen van deze leeftijd een bepaalde typesnelheid hebben
+[image](./Images ReadME/GemiddeldenStats.png)
+
 ## Beoordelingscriteria
 - Website
 - Programmeren
@@ -21,7 +30,7 @@ De website doelt op alle scholieren tussen 12 en 20. Er zijn dus ook verschillen
  - **Progress saving**: The website saves your progress, so even if you close it, your progress is retained(saved locally in the browser). You can always delete it in the settings.
 
 ## Hoe open je het product
-- Open Product/home.html uit het ingeleverde bestandje
+- Open Product/home.html uit het ingeleverde bestandje. Het kan lokaal geopend worden. Mocht het reset systeem niet werken kopieër dan de repo en run home.html via een live server
 - Open het bijgevoegde bestand over het gebruikersonderzoek
 
 ## How to use
@@ -36,6 +45,7 @@ De website doelt op alle scholieren tussen 12 en 20. Er zijn dus ook verschillen
 ### Word datasets
 - For the english dictionary, the Github [repository](https://github.com/Gamezxz/flashcard/blob/main/data/vocabulary.json) flashcard from Gamezxz and other contributors was used as a reference.
 - For the dutch dictionary, the Github [repository](https://github.com/OpenTaal/opentaal-wordlist) by  © Stichting OpenTaal, used under the BSD / CC BY 3.0 license.
+- For the statistics graphs, the Github [repository](https://github.com/chartjs/Chart.js) by Evert Timberg was used 
 
 ## AI disclosure
 Artificial intelligence(AI) was used to *assist* with writing code or with core related questions. All changes made by AI were closely monitored and reviewed(and revised if needed). Code written by AI was thoroughly tested.
