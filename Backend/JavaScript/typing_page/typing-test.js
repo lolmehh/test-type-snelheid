@@ -57,7 +57,7 @@ function drawRunChart() {
     const padding = { top: 16, right: 14, bottom: 52, left: 56 };
     const graphWidth = width - padding.left - padding.right;
     const graphHeight = height - padding.top - padding.bottom;
-    const maxSeconds = TIMER_LENGTH;
+    const maxSeconds = selectedDuration;
 
     context.font = "12px system-ui, sans-serif";
     context.textAlign = "right";
