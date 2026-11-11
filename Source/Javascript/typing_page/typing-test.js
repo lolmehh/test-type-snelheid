@@ -1,5 +1,5 @@
 import { getWords } from "./word-list.js";
-import { drawRunChart } from "./run-speed-chart.js";
+import { drawRunChart as renderRunChart } from "./run-speed-chart.js";
 
 let currentWords = [];//words to type
 let selectedDifficulty = 0;
@@ -39,76 +39,7 @@ const timeProgress = document.getElementById("time-progress");
 let startTime =null;
 
 function drawRunChart() {
-    if (!runChart) return;
-
-    const context = runChart.getContext("2d");
-    const width = runChart.clientWidth;
-    const height = runChart.clientHeight;
-    if (!context || !width || !height) return;
-
-    const pixelRatio = window.devicePixelRatio || 1;
-    runChart.width = width * pixelRatio;
-    runChart.height = height * pixelRatio;
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    context.clearRect(0, 0, width, height);
-
-    const points = WPMHistory;
-    const maxWpm = Math.max(20, ...points.map(point => point[1]));
-    const padding = { top: 16, right: 14, bottom: 52, left: 56 };
-    const graphWidth = width - padding.left - padding.right;
-    const graphHeight = height - padding.top - padding.bottom;
-    const maxSeconds = selectedDuration;
-
-    context.font = "12px system-ui, sans-serif";
-    context.textAlign = "right";
-    context.textBaseline = "middle";
-    context.strokeStyle = "rgba(255, 255, 255, 0.16)";
-    context.fillStyle = "rgba(255, 255, 255, 0.72)";
-    for (let tick = 0; tick <= 4; tick++) {
-        const value = Math.ceil(maxWpm * tick / 4);
-        const y = padding.top + graphHeight * (1 - tick / 4);
-        context.beginPath();
-        context.moveTo(padding.left, y);
-        context.lineTo(width - padding.right, y);
-        context.stroke();
-        context.fillText(String(value), padding.left - 7, y);
-    }
-
-    context.textAlign = "center";
-    context.textBaseline = "top";
-    context.fillText("Time (seconds)", padding.left + graphWidth / 2, height - 18);
-    [0, maxSeconds / 2, maxSeconds].forEach(second => {
-        const x = padding.left + second / maxSeconds * graphWidth;
-        context.fillText(String(second), x, padding.top + graphHeight + 4);
-    });
-    context.save();
-    context.translate(12, padding.top + graphHeight / 2);
-    context.rotate(-Math.PI / 2);
-    context.fillText("WPM", 0, 0);
-    context.restore();
-
-    if (points.length) {
-        const plotted = points.map(([seconds, wpm]) => ({
-            x: padding.left + Math.min(seconds, maxSeconds) / maxSeconds * graphWidth,
-            y: padding.top + (1 - wpm / maxWpm) * graphHeight
-        }));
-
-        context.beginPath();
-        plotted.forEach((point, index) => {
-            if (index === 0) context.moveTo(point.x, point.y);
-            else context.lineTo(point.x, point.y);
-        });
-        context.strokeStyle = "#85a7f7";
-        context.lineWidth = 3;
-        context.stroke();
-
-        plotted.forEach(point => {
-            context.beginPath();
-            context.arc(point.x, point.y, 3.5, 0, Math.PI * 2);
-            context.fillStyle = "#ffffff";
-            context.fill();
-        });
-    }
+    renderRunChart(runChart, WPMHistory, selectedDuration);
 }
 
 function updateRunStats() {
@@ -271,7 +202,7 @@ function updateTimer(){
     if (sampleSecond > lastGraphSampleSecond) {
         WPMHistory.push([elapsedSeconds, calc_wpm_real(measuredElapsed, correctWords)]);
         lastGraphSampleSecond = sampleSecond;
-        drawCurrentRunChart();
+        drawRunChart();
     }
     if (elapsed >= selectedDuration * 1000){
         clearInterval(scheduledTimerUpdate);
@@ -279,7 +210,7 @@ function updateTimer(){
         inputBox.disabled = true;
         const finalWpm = calc_wpm_real(measuredElapsed, correctWords);
         wpmLabel.textContent = "Speed: " + finalWpm + " wpm";
-        WPMHistory.push([TIMER_LENGTH, finalWpm]);
+        WPMHistory.push([selectedDuration, finalWpm]);
         drawRunChart();
         recordRun();
     }
@@ -330,10 +261,10 @@ function onCharTyped () {
         
         wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
         updateRunStats();
-        WPMHistory.push([Math.min(elapsed / 1000, TIMER_LENGTH), calc_wpm_real(elapsed, correctWords)]);
+        WPMHistory.push([Math.min(elapsed / 1000, selectedDuration), calc_wpm_real(elapsed, correctWords)]);
         drawRunChart();
     }
 }
 
 inputBox.addEventListener("input", () => onCharTyped());
-window.addEventListener("resize", drawCurrentRunChart);
+window.addEventListener("resize", drawRunChart);

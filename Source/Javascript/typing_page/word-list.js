@@ -1,5 +1,5 @@
-import dutch_words from "../../data/words/dutch/dutch_words_clean_rated.json" with { type: "json" };
-import english_words from "../../data/words/english/englosh_words_clean_rated.json" with { type: "json" };
+import dutch_words from "../../Resources/words/dutch/dutch_words_clean_rated.json" with { type: "json" };
+import english_words from "../../Resources/words/english/englosh_words_clean_rated.json" with { type: "json" };
 
 export async function getWords(lang = "en", difficulty = 0, amount = 1){
     /*
