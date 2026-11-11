@@ -1,5 +1,13 @@
-import dutch_words from "../data/words/dutch/words.json" with { type: "json" };
-import english_words from "../data/words/english/words.json" with { type: "json" };
+const fetchJson = async (relativePath) => {
+    const response = await fetch(new URL(relativePath, import.meta.url));
+    if (!response.ok) {
+        throw new Error(`Could not load JSON file: ${relativePath}`);
+    }
+    return response.json();
+};
+
+const dutch_words = fetchJson("../data/words/dutch/words.json");
+const english_words = fetchJson("../data/words/english/words.json");
 
 export async function getWords(lang = "en", difficulty = 0, amount = 1){
     /*
@@ -14,15 +22,16 @@ export async function getWords(lang = "en", difficulty = 0, amount = 1){
 
     let word_dataset;
     let words = [];
+    const resolvedDutchWords = await dutch_words;
+    const resolvedEnglishWords = await english_words;
     
     if(lang === "en"){
-            word_dataset = english_words.filter(word => word.level === difficulty_levels[difficulty] && !word.word.includes(" "));
+            word_dataset = resolvedEnglishWords.filter(word => word.level === difficulty_levels[difficulty] && !word.word.includes(" "));
             word_dataset = word_dataset.map(word => word.word);
     } else if(lang === "nl"){
-        word_dataset = dutch_words;
         //Since i did not find any json datasets with difficulty labels, the code will try to assume the difficulty
         let word_length_bounds = dutch_word_length_to_difficulty[difficulty];
-        word_dataset = dutch_words.filter(word => word.word.length >= word_length_bounds[0] && word.word.length <= word_length_bounds[1]);
+        word_dataset = resolvedDutchWords.filter(word => word.word.length >= word_length_bounds[0] && word.word.length <= word_length_bounds[1]);
         word_dataset = word_dataset.map(word => word.word);
     }
     for (let i = 0; i < amount; i++) {

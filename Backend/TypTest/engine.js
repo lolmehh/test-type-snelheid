@@ -1,4 +1,4 @@
-import { getWords } from "/Backend/Words/words.js";
+import { getWords } from "../Words/words.js";
 
 let currentWords = [];//words to type
 let selectedDifficulty = 0;
