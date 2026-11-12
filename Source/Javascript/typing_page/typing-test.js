@@ -1,5 +1,5 @@
 import { getWords } from "./word-list.js";
-import { drawRunChart as renderRunChart } from "./run-speed-chart.js";
+import { drawRunChart as renderRunChart } from "./run_speed_chart.js";
 
 let currentWords = [];//words to type
 let selectedDifficulty = 0;
@@ -21,19 +21,19 @@ const WORD_COUNT_ALG = "real_cumulative";//5char = each 5 chars of word counted 
 const COUNT_SPACES = true;//whether to require space at the end of word to continue to next
 const RUN_HISTORY_KEY = "typingTestRuns";
 
-const inputBox = document.getElementById("main-input");
-const wordGuideDiv = document.getElementById("Word-guide-container");
-const resetBtn = document.getElementById("reset-btn");
+const inputBox = document.getElementById("main_input");
+const wordGuideDiv = document.getElementById("Word_guide_container");
+const resetBtn = document.getElementById("reset_btn");
 const languageSelect = document.getElementById("language");
-const durationSelect = document.getElementById("test-duration");
+const durationSelect = document.getElementById("test_duration");
 const difficultySelect = document.getElementById("difficulty")
-const wpmLabel = document.getElementById("wpm-count")
-const charLabel = document.getElementById("char-count")
+const wpmLabel = document.getElementById("wpm_count")
+const charLabel = document.getElementById("char_count")
 const timerLabel = document.getElementById("timer")
-const wordLabel = document.getElementById("word-count");
-const runChart = document.getElementById("run-speed-chart");
-const runChartMessage = document.getElementById("run-chart-message");
-const timeProgress = document.getElementById("time-progress");
+const wordLabel = document.getElementById("word_count");
+const runChart = document.getElementById("run_speed_chart");
+const runChartMessage = document.getElementById("run_chart_message");
+const timeProgress = document.getElementById("time_progress");
 
 
 let startTime =null;
@@ -258,8 +258,6 @@ function onCharTyped () {
             wpm = calc_wpm_fivechar(elapsedTime, typedChars);
         }
         wpm = Math.round(wpm);
-
-
         
         wpmLabel.innerHTML = 'Speed: ' + wpm + ' wpm';
         updateRunStats();
