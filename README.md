@@ -6,14 +6,14 @@ Testypesnelheidtest is gemaakt zodat scholieren kunnen meten hoeveel woorden ze 
 
 De website doelt op alle scholieren tussen 12 en 20. Er zijn dus ook verschillende niveaus testen gemaakt, zodat iedereen tussen de leeftijden deze test kunnen uitvoeren.
 
-[image](./Images README/Home.png) - geeft de homepagina weer. Hier komen de scholieren op terecht als ze de pagina openen. Op de pagina zien ze in het midden gelijk de tester waarmee ze hun eigen typsnelheid kunnen testen. De tester bestaat uit verschillende onderdelen. De reset knop, Dropdown menuus waar dingen kunnen worden ingesteld, de tekst die geschreven moet worden, de tijd die over is, het invulvak, de snelheid van de huidige typesessie en nog meer gegevens van huidige typesessie. In de instructies op de pagina staat meer over hoe alles werkt: [image](./Images README/instructies.png)
+![image](/Images_README/Home.png) - geeft de homepagina weer. Hier komen de scholieren op terecht als ze de pagina openen. Op de pagina zien ze in het midden gelijk de tester waarmee ze hun eigen typsnelheid kunnen testen. De tester bestaat uit verschillende onderdelen. De reset knop, Dropdown menuus waar dingen kunnen worden ingesteld, de tekst die geschreven moet worden, de tijd die over is, het invulvak, de snelheid van de huidige typesessie en nog meer gegevens van huidige typesessie. In de instructies op de pagina staat meer over hoe alles werkt: ![image](/Images_README/Instructies.png)
 Linksbovenin staan drie icoontjes waarmee ze instellingen kunnen openen, naar de statistiek pagina kunnen gaan en als laatste een uitleg kunnen krijgen over hoe de type tester werkt.
 
 op de statistieken pagina zijn twee verschillende soorten statistieken te zien. De eerste zijn de persoonsgebonden statestieken. Dit zijn de statestieken op basis van de resultaten van de testen die iemand heeft gedaan.
-[image](./Images README/EigenStats.png)
+![image](/Images_README/EigenStats.png)
 Er zijn een heleboel gegevens uit te lezen van de gemaakte tests. WPM, geschreven woorden, aantal geschreven karakter en de moeilijkheidsgraad.
 De tweede soort statestiek is zijn de gemiddelden van mensen tussen de 12 en 20 jaar oud. Op deze grafiek is af te lezen hoeveel procent van de mensen van deze leeftijd een bepaalde typesnelheid hebben
-[image](./Images ReadME/GemiddeldenStats.png)
+![image](/Images_README/GemiddeldenStats.png)
 
 ## Beoordelingscriteria
 - Website
