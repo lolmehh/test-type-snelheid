@@ -22,30 +22,30 @@ De tweede soort statestiek is zijn de gemiddelden van mensen tussen de 12 en 20 
 
 ## Features
 
- - **Language support**: You can type in both english and dutch.
- - **Difficulty rating**: The words are graded by their typing difficulty. Word length, character combinations, row shifts,  finger and hand alterations, etc are all taken in account to determine the difficulty of a word.
- - **Infinite typing**: The limit to how much words you can type in a period of time is only your own typing speed!
- - **Real-time feedback**: You can immediately see your speed, mistakes, amount of typed words and more right after you have finished a test. There is also a real-time graph that updates with each word you haave typed to show cnahges in your speed.
- - **Statistics**: The statistics page is very useful to track your progress with interactive charts and tables. It also shows real-world statistics so you can compare your results to those of an average person.
- - **Progress saving**: The website saves your progress, so even if you close it, your progress is retained(saved locally in the browser). You can always delete it in the settings.
+- **Taalondersteuning**: Je kunt in zowel het Engels als het Nederlands typen. 
+- **Moeilijkheidsgraad**: Woorden worden ingedeeld op basis van hun type-moeilijkheidsgraad. Factoren zoals woordlengte, tekencombinaties, het verplaatsen van vingers tussen rijen op het toetsenbord, afwisseling tussen vingers en handen, enzovoort, worden meegewogen om de moeilijkheidsgraad van een woord te bepalen. 
+- **Onbeperkt typen**: De enige beperking voor het aantal woorden dat je in een bepaalde tijd kunt typen, is je eigen typsnelheid! 
+- **Directe feedback**: Zodra je een test hebt afgerond, zie je direct je snelheid, het aantal gemaakte fouten, het aantal getypte woorden en meer. Daarnaast is er een grafiek die bij elk getypt woord wordt bijgewerkt, zodat je het verloop van je snelheid in realtime kunt volgen. 
+- **Statistieken**: De statistiekenpagina is ideaal om je voortgang bij te houden via interactieve grafieken en tabellen. Ook worden er algemene statistieken getoond, zodat je jouw resultaten kunt vergelijken met die van een gemiddelde gebruiker. 
+- **Voortgang opslaan**: De website slaat je voortgang op; zelfs als je de site afsluit, blijft je voortgang bewaard (deze wordt lokaal in je browser opgeslagen). Je kunt je gegevens op elk gewenst moment verwijderen via de instellingen.
 
 ## Hoe open je het product
 - Open Product/home.html uit het ingeleverde bestandje. Het kan lokaal geopend worden. Mocht het reset systeem niet werken kopieër dan de repo en run home.html via een live server
 - Open het bijgevoegde bestand over het gebruikersonderzoek
 
-## How to use
-1. **Select your language**: Either english or dutch. This determines the language of the words you are going to type.
-2. **Select a difficulty**: From easy to impossible. This determines the difficulty of the words you are going to type.
-3. **Click on reset**: This will generate new words. 
-4. **Click on the typing field**: Don't worry, the timer will start once you start typing, so you can take all the time you need to prepare.
-5. **Start typing**: Once you are ready, start typing the first word. Once you are done typing, press Space to start typing the next word. If you typed it wrong, you will have to correct your mistake before continuing to the next one, so you better make no mistakes!
-6. **See your results**: After you have finished typing, you can see how well you did by looking at the chart below the typing field, or go to the statistics page to compare your results. Alternatively, you can start another run.
+## Hoe te gebruiken
+1. **Selecteer je taal**: Kies Engels of Nederlands. Dit bepaalt de taal van de woorden die je gaat typen.
+2. **Selecteer een moeilijkheidsgraad**: Van 'makkelijk' tot 'onmogelijk'. Dit bepaalt hoe uitdagend de woorden zijn die je moet typen.
+3. **Klik op 'reset'**: Hiermee worden nieuwe woorden gegenereerd.
+4. **Klik in het tekstveld**: Geen zorgen, de timer start pas zodra je begint met typen; je hebt dus alle tijd om je voor te bereiden.
+5. **Begin met typen**: Zodra je er klaar voor bent, typ je het eerste woord. Druk na het typen van een woord op de spatiebalk om door te gaan naar het volgende woord. Als je een fout maakt, moet je deze corrigeren voordat je verder kunt – probeer dus om geen fouten te maken!
+6. **Bekijk je resultaten**: Nadat je klaar bent, kun je je prestaties bekijken in de grafiek onder het tekstveld, of naar de statistiekenpagina gaan om je resultaten te vergelijken. Je kunt natuurlijk ook direct aan een nieuwe sessie beginnen.
 
-## Sources
-### Word datasets
-- For the english dictionary, the Github [repository](https://github.com/Gamezxz/flashcard/blob/main/data/vocabulary.json) flashcard from Gamezxz and other contributors was used as a reference.
-- For the dutch dictionary, the Github [repository](https://github.com/OpenTaal/opentaal-wordlist) by  © Stichting OpenTaal, used under the BSD / CC BY 3.0 license.
-- For the statistics graphs, the Github [repository](https://github.com/chartjs/Chart.js) by Evert Timberg was used 
+## Bronnen
+### Woorddatasets
+- Voor het Engelse woordenboek is de GitHub-[repository](https://github.com/Gamezxz/flashcard/blob/main/data/vocabulary.json) 'flashcard' van Gamezxz en andere bijdragers als referentie gebruikt.
+- Voor het Nederlandse woordenboek is de GitHub-[repository](https://github.com/OpenTaal/opentaal-wordlist) van © Stichting OpenTaal gebruikt, onder de BSD- / CC BY 3.0-licentie.
+- Voor de statistische grafieken is de GitHub-[repository](https://github.com/chartjs/Chart.js) van Evert Timberg gebruikt.
 
-## AI disclosure
-Artificial intelligence(AI) was used to *assist* with writing code or with core related questions. All changes made by AI were closely monitored and reviewed(and revised if needed). Code written by AI was thoroughly tested.
+## Gebruik van AI
+Kunstmatige intelligentie (AI) is ingezet als *ondersteuning* bij het schrijven van code en bij het beantwoorden van vragen. Alle door AI aangebrachte wijzigingen zijn nauwlettend gevolgd, gecontroleerd en waar nodig aangepast. Door AI gegenereerde code is grondig getest.
