@@ -1,5 +1,5 @@
 import { getWords } from "./word-list.js";
-import { drawRunChart as renderRunChart } from "./run_speed_chart.js";
+import { drawRunChart as renderRunChart } from "./run-speed-chart.js";
 
 let currentWords = [];//words to type
 let selectedDifficulty = 0;

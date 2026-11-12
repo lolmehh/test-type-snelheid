@@ -1,5 +1,5 @@
 export function drawRunChart(runChart, points, timerLength) {
-    if (!runChart) return;
+    //if (!runChart) return;
 
     const context = runChart.getContext("2d");
     const width = runChart.clientWidth;
