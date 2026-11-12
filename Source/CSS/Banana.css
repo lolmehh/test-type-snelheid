@@ -19,7 +19,7 @@ html {height: 100%;}
   --menu_gradient_100: #85a7f7;
   --regular_text: #0A2463;
   --chart_bg: rgba(15, 20, 65, 0.25);
-  -_divider: rgba(255, 255, 255, 0.35);
+  --divider: rgba(255, 255, 255, 0.35);
   --reset_button: #5681F1;
 }
 
@@ -281,7 +281,7 @@ body {
   width: min(1100px, 100%);
   margin: 0 auto 32px;
   border: 0;
-  border-top: 1px solid var(-_divider);
+  border-top: 1px solid var(--divider);
 }
 
 .typing_main .title {
