@@ -5,7 +5,7 @@ const to_English = document.getElementById("to_English")
 const to_Dutch = document.getElementById("to_Dutch")
 const languageSelect = document.getElementById("language")
 const difficultySelect = document.getElementById("difficulty")
-const durationSelect = document.getElementById("test-duration")
+const durationSelect = document.getElementById("test_duration")
 
 const difficultyButtons = [
   document.getElementById("to_makkelijk"),
@@ -113,8 +113,8 @@ durationButtons.forEach((button) => {
 })
 
 const infoButton = document.getElementById("info-button")
-const infoPopup = document.getElementById("info-pop-up")
-const closeInfoPopup = document.getElementById("close-info-pop-up")
+const infoPopup = document.getElementById("info_pop_up")
+const closeInfoPopup = document.getElementById("close_info_pop_up")
 
 if (infoButton && infoPopup) {
   infoButton.addEventListener("click", () => {

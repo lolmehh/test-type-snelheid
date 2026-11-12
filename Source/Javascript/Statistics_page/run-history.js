@@ -5,7 +5,7 @@ const historySorts = {
     nl: document.getElementById("run-history-sort-nl"),
     en: document.getElementById("run-history-sort-en")
 };
-const clearHistoryButton = document.getElementById("clear-run-history");
+const clearHistoryButton = document.getElementById("clear_run_history");
 const relativeTimeFormatter = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
 const difficultyColors = ["#55c1a7", "#5b9bd5", "#f2c14e", "#ed8b5a", "#d66ba0"];
 const verificationRunDates = new Set([
