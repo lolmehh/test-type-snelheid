@@ -19,7 +19,7 @@ html {height: 100%;}
   --menu_gradient_100: #85a7f7;
   --regular_text: #0A2463;
   --chart_bg: rgba(15, 20, 65, 0.25);
-  -_divider: rgba(255, 255, 255, 0.35);
+  --divider: rgba(255, 255, 255, 0.35);
   --reset_button: #5681F1;
 }
 
@@ -281,7 +281,7 @@ body {
   width: min(1100px, 100%);
   margin: 0 auto 32px;
   border: 0;
-  border-top: 1px solid var(-_divider);
+  border-top: 1px solid var(--divider);
 }
 
 .typing_main .title {
@@ -455,32 +455,34 @@ body {
 .info_pop_up.show {display: flex;}
 .info_pop_up.hidden {display: none;}
 
-.info_pop_up-content {
+.info_pop_up_content {
   position: relative;
   width: min(560px, 90vw);
+  max-height: 90vh;
+  overflow-y: auto;
   background: linear-gradient(180deg, var(--menu_gradient_0) 0%, var(--menu_gradient_60) 60%, var(--menu_gradient_100) 100%);
   color: var(--section_text);
   border: 2px solid;
   border-radius: 18px;
   padding: 28px 24px 20px;
-  box-shadow: none;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
 }
 
-.info_pop_up-content h2 {
+.info_pop_up_content h2 {
   margin: 0 0 12px;
   font-size: clamp(1.2rem, 2vw, 2rem);
   white-space: normal;
   text-align: left;
 }
 
-.info_pop_up-content ol {
+.info_pop_up_content ol {
   margin: 0;
   padding-left: 20px;
   line-height: 1.8;
   font-family: 'Lucida Console', 'Times New Roman', serif;
 }
 
-.info_pop_up-close {
+.info_pop_up_close {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -535,21 +537,21 @@ body {
   font-family: 'Lucida Console', monospace;
 }
 
-.reset_button-main {
+.reset_button_main {
   font-size: clamp(1.1rem, 2vw, 2rem);
   font-weight: 700;
   line-height: 1.2;
 }
 
-.reset_button-sub {
+.reset_button_sub {
   font-size: clamp(0.65rem, 1vw, 0.9rem);
   opacity: 0.8;
   line-height: 1.2;
 }
 
-.settings-row {
+.settings_row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   gap: 18px;
   width: 100%;
@@ -560,9 +562,9 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
-  flex: 1 1 180px;
+  flex: 1 1 0;
   min-width: 0;
-  max-width: 220px;
+  max-width: none;
 }
 
 .field_group label {

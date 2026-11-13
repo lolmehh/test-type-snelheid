@@ -30,8 +30,8 @@ De tweede soort statestiek is zijn de gemiddelden van mensen tussen de 12 en 20 
 - **Voortgang opslaan**: De website slaat je voortgang op; zelfs als je de site afsluit, blijft je voortgang bewaard (deze wordt lokaal in je browser opgeslagen). Je kunt je gegevens op elk gewenst moment verwijderen via de instellingen.
 
 ## Hoe open je het product
-- Open Product/home.html uit het ingeleverde bestandje. Het kan lokaal geopend worden. Mocht het reset systeem niet werken kopieër dan de repo en run home.html via een live server
-- Open het bijgevoegde bestand over het gebruikersonderzoek
+- Open Product/home.html uit het ingeleverde bestandje. Het kan lokaal geopend worden. Mocht het reset systeem niet werken run dan de website via een live server op bijvoorbeeld visual studio code. Wellicht werkt het ook op de github page link. [site](https://lolmehh.github.io/test-type-snelheid/Product/home.html)
+- Open het bijgevoegde bestand over het gebruikersonderzoek te vinden in het mapje [gebruikers_onderzoeken](/gebruikers_onderzoeken/)
 
 ## Hoe te gebruiken
 1. **Selecteer je taal**: Kies Engels of Nederlands. Dit bepaalt de taal van de woorden die je gaat typen.
